@@ -1,0 +1,33 @@
+$("#form-tambah-jenis-pelaporan").submit(async (e) => {
+  e.preventDefault();
+  await addJenisPelaporan();
+});
+
+const addJenisPelaporan = async () => {
+  $(".preloader1").fadeIn(300);
+  const name = $("#tambah-jenis-pelaporan").val();
+  const icon = $("#tambah-icon").prop("files");
+  const emergency_status = $("#tambah-status-pelaporan").val();
+
+  const fd = new FormData();
+  fd.append("name", name);
+  fd.append("emergency_status", emergency_status);
+
+  if (icon.length > 0) {
+    fd.append("icon", icon[0]);
+  }
+
+  fd.append("XAT", `Bearer ${localStorage.getItem("access_token")}`);
+
+  const req = await fetch(
+    "https://api.sipandu-beradat.id/jenis-pelaporan/create/",
+    {
+      method: "POST",
+      body: fd,
+    }
+  );
+  $(".preloader1").fadeOut(300);
+  const { status_code, message, data } = await req.json();
+  swal1(status_code,"jenis-pelaporan.html",addJenisPelaporan,refreshToken(),message);
+  
+};
