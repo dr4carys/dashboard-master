@@ -10,6 +10,10 @@ const active_status_badges = [
 
 $(document).ready(async () => {
   readKabupaten();
+    $("#status_aktif").change((e) => {
+      readKabupaten();
+    
+  });
 });
 
 const readKabupaten = async () => {
@@ -29,6 +33,7 @@ const readKabupaten = async () => {
 
   if (status_code === 200) {
     $(".table-datatable").DataTable({
+      destroy : true,
       fixedHeader: {
         header: true,
         footer: true,

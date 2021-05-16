@@ -127,13 +127,17 @@ const readJenisInstansi = async () => {
 };
 
 const readInstansi = async () => {
+  console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
   var link = "";
   startLoading();
   const tambahKabupaten = $("#tambah-kabupaten1").val();
-  const tambahKecamatan = $("#tambah-kecamata1n").val();
+  const tambahKecamatan = $("#tambah-kecamatan1").val();
   const tambahJenisInstansi = $("#tambah-jenis-instansi1").val();
   const tambahStatusPelaporan = $("#tambah-status-pelaporan1").val();
+  console.log(tambahStatusPelaporan)
+  
   const statusAktif = $("#status_aktif").val();
+  console.log("status",statusAktif)
   var arraysemen = [];
   if (statusAktif == 1) {
     link =
@@ -152,26 +156,20 @@ const readInstansi = async () => {
     tambahKabupaten,
     tambahKecamatan,
     tambahJenisInstansi,
-    tambahStatusPelaporan,
+    tambahStatusPelaporan
   ];
   if (
     tambahKabupaten == "c" &&
     tambahKabupaten == "c" &&
     tambahJenisInstansi == "c" &&
-    tambahStatusPelaporan == "c" &&
-    statusAktif == "c"
-  ) {
+    tambahStatusPelaporan == "c" 
+  ){
     data1 = data;
-    console.log("hh");
   } else {
     console.log("hh1");
     for (var c = 0; c < dataArray.length; c++) {
-      if (
-        dataArray[c] !== "c" &&
-        dataArray[c] !== "Pilih kategori pelapor" &&
-        dataArray[c] !== "Pilih kategori desa adat"
-      ) {
-        console.log("yy", dataArray[c] !== "c");
+      if (dataArray[c] !== "c" ) {
+        console.log("yy", dataArray[c]);
         arraysemen.push(c);
       }
     }
@@ -191,7 +189,7 @@ const readInstansi = async () => {
         });
         console.log("data1", data1);
       } else {
-        console.log("data12", data1);
+        // console.log("data12", data1);
         data1 = data1.filter(function filterss(data) {
           var arrayreturn = [
             data.kecamatan.kabupaten.id == tambahKabupaten,

@@ -13,6 +13,7 @@ $(document).ready(async () => {
   $("#tambah-desa-adat").attr("disabled", "disabled");
   $("#tambah-kecamatan1").attr("disabled", "disabled");
   $("#tambah-desa-adat1").attr("disabled", "disabled");
+  $("#tambah-desa-adat1").attr("disabled", "disabled");
   const kabupatens = await readKabupaten();
   const kecamatans = await readKecamatan();
   const desaAdats = await readDesaAdat();
@@ -205,9 +206,10 @@ const readAkomodasi = async () => {
   startLoading();
   var link;
   // $(".preloader").fadeIn(300);
-  const namaKecamatan = $("#tambah-kecamatan option:selected").text();
+  const namaKabupaten = $("#tambah-kabupaten1 option:selected").text();
+  const namaKecamatan = $("#tambah-kecamatan1 option:selected").text();
   // console.log(namaKabupaten)
-  const namaDesaAdat = $("#tambah-desa-adat option:selected").text();
+  const namaDesaAdat = $("#tambah-desa-adat1 option:selected").text();
   const statusAktif = $("#status_aktif").val();
   // console.log(namaKabupaten)
   if (statusAktif == 1) {
@@ -221,7 +223,7 @@ const readAkomodasi = async () => {
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
   console.log(data);
-  if (namaKecamatan === "Pilih Kecamatan") {
+  if (namaKecamatan === "Pilih Kecamatan" && namaDesaAdat == "Pilih Desa Adat") {
     var data1 = data;
   } else if (namaDesaAdat != "Pilih Desa Adat") {
     var data1 = data.filter(function filterss(data) {

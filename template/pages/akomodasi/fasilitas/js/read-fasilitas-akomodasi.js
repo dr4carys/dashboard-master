@@ -26,13 +26,16 @@ $(document).ready(() => {
       $("#label-edit-icon").text("Select file");
     }
   });
+  $("#status_aktif").change((e) => {
+    readFasilitas();
+  });
 });
 
 const readFasilitas = async () => {
   var link = "";
   startLoading();
   const statusAktif = $("#status_aktif").val();
-  // console.log(namaKabupaten)
+  console.log(statusAktif)
   if (statusAktif == 1) {
     link = "https://api.sipandu-beradat.id/fasilitas/?active_status=true";
   } else if (statusAktif == 0) {

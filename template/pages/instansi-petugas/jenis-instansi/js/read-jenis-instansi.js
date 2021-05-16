@@ -10,6 +10,10 @@ const active_status_badges = [
 
 $(document).ready(() => {
   readJenisInstansi();
+  $("#status_aktif").change((e) => {
+    readJenisInstansi();
+  });
+
 });
 
 const readJenisInstansi = async () => {
@@ -33,6 +37,7 @@ const readJenisInstansi = async () => {
 
   if (status_code === 200) {
     $(".table-datatable").DataTable({
+      destroy:true,
       fixedHeader: {
         header: true,
         footer: true,

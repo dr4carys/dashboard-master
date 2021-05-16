@@ -26,6 +26,10 @@ $(document).ready(() => {
       $("#label-edit-icon").text("Select file");
     }
   });
+  $("#status_aktif").change((e) => {
+    readNegara();
+  
+});
 });
 
 const readNegara = async () => {

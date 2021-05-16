@@ -10,6 +10,10 @@ const active_status_badges = [
 
 $(document).ready(() => {
   readProvinsi();
+  $("#status_aktif").change((e) => {
+    readProvinsi();
+  
+});
 });
 
 const readProvinsi = async () => {
