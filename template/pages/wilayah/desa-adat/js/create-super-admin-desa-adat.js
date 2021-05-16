@@ -4,6 +4,7 @@ $("#form-tambah-super-admin").submit(async (e) => {
 });
 
 const addMasyarakat = async () => {
+  startLoading();
   const name = $("#admin-name").val();
   const nik = $("#admin-nik").val();
   const noTelp = $("#admin-telp").val();
@@ -61,6 +62,7 @@ const addSuperAdminDesaAdat = async (id) => {
   const { status_code, message } = await req2.json();
 
   if (status_code === 200 || status_code === 400) {
+    stopLoading();
     alert(message);
   } else if (status_code === 401) {
     refreshToken(() => addSuperAdminDesaAdat(id));

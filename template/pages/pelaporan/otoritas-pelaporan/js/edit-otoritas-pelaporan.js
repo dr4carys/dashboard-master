@@ -4,6 +4,7 @@ $("#form-edit-otoritas-pelaporan").submit(async (e) => {
 });
 
 const updateOtoritasPelaporan = async () => {
+  startLoading();
   const idOtoritasPelaporan = $("#edit-id").val();
   const namaInstansiEdit = $("#edit-instansi").val();
   const jenisPelaporanEdit = $("#edit-jenis-pelaporan").val();
@@ -22,6 +23,12 @@ const updateOtoritasPelaporan = async () => {
     }
   );
   const { status_code, data, message } = await req.json();
-  swal1(status_code,"jenis-pelaporan.html",updateJenisPelaporan,refreshToken(),message);
- 
+  stopLoading();
+  swal1(
+    status_code,
+    "otoritas-pelaporan.html",
+    updateOtoritasPelaporan,
+    refreshToken(),
+    message
+  );
 };

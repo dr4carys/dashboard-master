@@ -5,7 +5,7 @@ $("#form-edit-provinsi").submit(async (e) => {
 });
 
 const updateProvinsi = async () => {
-  $(".preloader1").fadeIn(300);
+  startLoading();
   const idProvinsi = $("#edit-id").val();
   const namaNegara = $("#edit-negara").val();
   const namaProvinsi = $("#edit-provinsi").val();
@@ -23,9 +23,9 @@ const updateProvinsi = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  $(".preloader1").fadeOut(300);
-  swal1(status_code,"provinsi.html",updateProvinsi,refreshToken(),message);
- 
+  stopLoading();
+  swal1(status_code, "provinsi.html", updateProvinsi, refreshToken(), message);
+
   // if (status_code === 200) {
   //   alert(message);
   //   readProvinsi();

@@ -27,27 +27,27 @@ $(document).ready(async () => {
 });
 
 const readKecamatan = async () => {
-  var link 
-  $(".preloader").fadeIn(300);
-  const namaKabupaten = $("#tambah-kabupaten1 option:selected").text()
-  const statusAktif = $("#status_aktif").val()
-  if(statusAktif ==1){
-    link= "https://api.sipandu-beradat.id/kecamatan/?active_status=true"
-  }else if(statusAktif == 0){
-    link= "https://api.sipandu-beradat.id/kecamatan/?active_status=false"
-  }else if(statusAktif == 2){
-    link= "https://api.sipandu-beradat.id/kecamatan/"
+  var link;
+  startLoading();
+  const namaKabupaten = $("#tambah-kabupaten1 option:selected").text();
+  const statusAktif = $("#status_aktif").val();
+  if (statusAktif == 1) {
+    link = "https://api.sipandu-beradat.id/kecamatan/?active_status=true";
+  } else if (statusAktif == 0) {
+    link = "https://api.sipandu-beradat.id/kecamatan/?active_status=false";
+  } else if (statusAktif == 2) {
+    link = "https://api.sipandu-beradat.id/kecamatan/";
   }
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
-  if(namaKabupaten === "Pilih Kabupaten" ){
-    var data1 = data
-  }else{
-    var data1 = data.filter(function filterss(data){
-      return data.kabupaten.name == namaKabupaten
+  if (namaKabupaten === "Pilih Kabupaten") {
+    var data1 = data;
+  } else {
+    var data1 = data.filter(function filterss(data) {
+      return data.kabupaten.name == namaKabupaten;
     });
   }
- 
+
   if (status_code === 200) {
     const datatab = $(".table-datatable").DataTable({
       destroy: true,
@@ -63,11 +63,7 @@ const readKecamatan = async () => {
         active_status_badges[Number(obj.active_status)],
         `<div class="container-crud">
         <a href="#" class="btn btn-inverse-primary btn-rounded btn-icon btn-action mr-2 btn-edit" title="Edit" data-toggle="modal"
-        data-target="#modal-edit-kecamatan" data-id="${
-          obj.id
-        }" data-kabupaten-id="${obj.kabupaten.id}" data-name="${
-          obj.name
-        }" data-status="${Number(obj.active_status)}">
+        data-target="#modal-edit-kecamatan" data-id="${obj.id}" data-kabupaten-id="${obj.kabupaten.id}" data-name="${obj.name}" data-status="${obj.active_status}">
           <i class="mdi mdi-pencil"></i>
         </a>
         <a href="#" class="btn btn-inverse-primary-red btn-rounded btn-icon btn-action mr-2 btn-delete" title="Delete" data-toggle="modal"
@@ -88,12 +84,11 @@ const readKecamatan = async () => {
       $("#edit-kecamatan").val(name);
       $("#edit-active-status").val(status);
     });
- 
+
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);
     });
-    $(".preloader").fadeOut(300);
+    stopLoading();
   }
- 
 };

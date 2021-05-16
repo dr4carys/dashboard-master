@@ -12,6 +12,7 @@ $(document).ready(() => {
 });
 
 const readStatusMasyarakat = async () => {
+  startLoading();
   const req = await fetch(
     "https://api.sipandu-beradat.id/status-aktif-masyarakat/"
   );
@@ -58,5 +59,6 @@ const readStatusMasyarakat = async () => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);
     });
+    stopLoading();
   }
 };

@@ -4,7 +4,7 @@ $("#form-tambah-super-admin").submit(async (e) => {
 });
 
 const addPegawaiAkomodasi = async () => {
-  $(".preloader1").fadeIn(300);
+  startLoading();
   const id_akomodasi = $("#edit-id").val();
   const name = $("#admin-name").val();
   const phone = $("#admin-telp").val();
@@ -35,7 +35,6 @@ const addPegawaiAkomodasi = async () => {
     }
   );
   const { status_code, message, data } = await req.json();
-  $(".preloader1").fadeOut(300);
   if (status_code === 200) {
     addSuperAdminAkomodasi(data.id);
   } else if (status_code === 400) {
@@ -46,7 +45,6 @@ const addPegawaiAkomodasi = async () => {
 };
 
 const addSuperAdminAkomodasi = async (id) => {
-  $(".preloader1").fadeIn(300);
   const username = $("#admin-username").val();
   const password = $("#admin-password").val();
 
@@ -64,7 +62,7 @@ const addSuperAdminAkomodasi = async (id) => {
     }
   );
   const { status_code, message } = await req2.json();
-  $(".preloader1").fadeOut(300);
+  stopLoading();
   if (status_code === 200 || status_code === 400) {
     alert(message);
   } else if (status_code === 401) {

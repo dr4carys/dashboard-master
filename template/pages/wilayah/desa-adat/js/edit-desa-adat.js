@@ -4,6 +4,7 @@ $("#form-edit-desa-adat").submit(async (e) => {
 });
 
 const updateDesaAdat = async () => {
+  startLoading();
   const idDesaAdat = $("#edit-id").val();
   const namaKecamatanEdit = $("#edit-kecamatan").val();
   const namaDesaAdatEdit = $("#edit-desa-adat").val();
@@ -25,6 +26,6 @@ const updateDesaAdat = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  swal1(status_code,"desa-adat.html",updateDesaAdat,refreshToken(),message);
- 
+  stopLoading();
+  swal1(status_code, "desa-adat.html", updateDesaAdat, refreshToken(), message);
 };

@@ -4,8 +4,8 @@ $("#form-tambah-fasilitas").submit(async (e) => {
 });
 
 const addFasilitas = async () => {
-  $(".preloader1").fadeIn();
-  
+  startLoading();
+
   const name = $("#tambah-fasilitas").val();
   const icon = $("#tambah-icon").prop("files");
 
@@ -23,6 +23,6 @@ const addFasilitas = async () => {
     body: fd,
   });
   const { status_code, message, data } = await req.json();
-  $(".preloader1").fadeOut();
-  swal1(status_code,"fasilitas.html",addFasilitas,refreshToken(),message);
+  stopLoading();
+  swal1(status_code, "fasilitas.html", addFasilitas, refreshToken(), message);
 };

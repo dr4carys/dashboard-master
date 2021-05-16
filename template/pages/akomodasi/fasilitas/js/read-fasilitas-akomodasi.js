@@ -1,6 +1,6 @@
 $("#form-fasilitas").submit(async (e) => {
   e.preventDefault();
-  $(".preloader").fadeIn(300);
+  startLoading();
   await readFasilitas();
 });
 const active_status_badges = [
@@ -29,23 +29,24 @@ $(document).ready(() => {
 });
 
 const readFasilitas = async () => {
-  var link =""
-  const statusAktif = $("#status_aktif").val()
+  var link = "";
+  startLoading();
+  const statusAktif = $("#status_aktif").val();
   // console.log(namaKabupaten)
-  if(statusAktif ==1){
-    link= "https://api.sipandu-beradat.id/fasilitas/?active_status=true"
-  }else if(statusAktif == 0){
-    link= "https://api.sipandu-beradat.id/fasilitas/?active_status=false"
-  }else if(statusAktif == 2){
-    link= "https://api.sipandu-beradat.id/fasilitas/"
+  if (statusAktif == 1) {
+    link = "https://api.sipandu-beradat.id/fasilitas/?active_status=true";
+  } else if (statusAktif == 0) {
+    link = "https://api.sipandu-beradat.id/fasilitas/?active_status=false";
+  } else if (statusAktif == 2) {
+    link = "https://api.sipandu-beradat.id/fasilitas/";
   }
-  
+
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
-  console.log(data)
+  console.log(data);
   if (status_code === 200) {
     $(".table-datatable").DataTable({
-      destroy:true,
+      destroy: true,
       fixedHeader: {
         header: true,
         footer: true,
@@ -78,8 +79,7 @@ const readFasilitas = async () => {
       $("#edit-fasilitas").val(name);
       $("#edit-active-status").val(status);
     });
-    $(".preloader").fadeOut();
-    $(".preloader1").fadeOut();
+    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

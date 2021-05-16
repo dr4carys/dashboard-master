@@ -1,6 +1,6 @@
 $("#form-instansi").submit(async (e) => {
   e.preventDefault();
-  $(".preloader").fadeIn(300);
+  startLoading();
   await readInstansi();
 });
 const report_status_texts = ["Tidak", "Kustom", "Seluruhnya"];
@@ -127,68 +127,87 @@ const readJenisInstansi = async () => {
 };
 
 const readInstansi = async () => {
-  var link =""
-  const tambahKabupaten = $("#tambah-kabupaten1").val()
-  const tambahKecamatan = $("#tambah-kecamata1n").val()
-  const tambahJenisInstansi = $("#tambah-jenis-instansi1").val()
-  const tambahStatusPelaporan = $("#tambah-status-pelaporan1").val()
-  const statusAktif = $("#status_aktif").val()
-  var arraysemen =[]
-  if(statusAktif ==1){
-    link= "https://api.sipandu-beradat.id/instansi-petugas/?active_status=true"
-  }else if(statusAktif == 0){
-    link= "https://api.sipandu-beradat.id/instansi-petugas/?active_status=false"
-  }else if(statusAktif == "c"){
-    link= "https://api.sipandu-beradat.id/instansi-petugas/"
+  var link = "";
+  startLoading();
+  const tambahKabupaten = $("#tambah-kabupaten1").val();
+  const tambahKecamatan = $("#tambah-kecamata1n").val();
+  const tambahJenisInstansi = $("#tambah-jenis-instansi1").val();
+  const tambahStatusPelaporan = $("#tambah-status-pelaporan1").val();
+  const statusAktif = $("#status_aktif").val();
+  var arraysemen = [];
+  if (statusAktif == 1) {
+    link =
+      "https://api.sipandu-beradat.id/instansi-petugas/?active_status=true";
+  } else if (statusAktif == 0) {
+    link =
+      "https://api.sipandu-beradat.id/instansi-petugas/?active_status=false";
+  } else if (statusAktif == "c") {
+    link = "https://api.sipandu-beradat.id/instansi-petugas/";
   }
-  console.log(link)
+  console.log(link);
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
-  console.log(data)
-  var dataArray =[tambahKabupaten,tambahKecamatan,tambahJenisInstansi,tambahStatusPelaporan]
-  if(tambahKabupaten== "c" && tambahKabupaten == "c"
-      && tambahJenisInstansi == "c" &&tambahStatusPelaporan =="c" && statusAktif == "c"){
-    data1 = data
-    console.log("hh")
-  }else{
-    console.log("hh1")
-    for(var c =0; c<dataArray.length;c++){
-      if(dataArray[c] !== "c" && dataArray[c]!=="Pilih kategori pelapor" &&dataArray[c] !=="Pilih kategori desa adat" ){
-        console.log("yy",dataArray[c] !== "c")
-        arraysemen.push(c)
+  console.log(data);
+  var dataArray = [
+    tambahKabupaten,
+    tambahKecamatan,
+    tambahJenisInstansi,
+    tambahStatusPelaporan,
+  ];
+  if (
+    tambahKabupaten == "c" &&
+    tambahKabupaten == "c" &&
+    tambahJenisInstansi == "c" &&
+    tambahStatusPelaporan == "c" &&
+    statusAktif == "c"
+  ) {
+    data1 = data;
+    console.log("hh");
+  } else {
+    console.log("hh1");
+    for (var c = 0; c < dataArray.length; c++) {
+      if (
+        dataArray[c] !== "c" &&
+        dataArray[c] !== "Pilih kategori pelapor" &&
+        dataArray[c] !== "Pilih kategori desa adat"
+      ) {
+        console.log("yy", dataArray[c] !== "c");
+        arraysemen.push(c);
       }
-    
-  }
-  console.log("panjgan kl",arraysemen)
-  for (var b =0 ; b<arraysemen.length;b++){
-    if(b===0){
-      data1 = data.filter(function filterss(data){
-        console.log("KLEE122")
-        var arrayreturn = [data.kecamatan.kabupaten.id == tambahKabupaten,data.kecamatan.id == tambahKecamatan,
-          data.jenis_instansi.id == tambahJenisInstansi    , data.report_status== tambahStatusPelaporan]
-        console.log("sss",dataArray)
-        return arrayreturn[arraysemen[b]]
-       
-      });
-      console.log("data1",data1)
-    }else{
-      console.log("data12",data1)
-      data1 = data1.filter(function filterss(data){
-        var arrayreturn = [data.kecamatan.kabupaten.id == tambahKabupaten,data.kecamatan.id == tambahKecamatan,
-          data.jenis_instansi.id == tambahJenisInstansi    , data.report_status== tambahStatusPelaporan]
-        console.log("sss",dataArray)
-        return arrayreturn[arraysemen[b]]
-       
-      });
-      
     }
-  }
-
-
+    console.log("panjgan kl", arraysemen);
+    for (var b = 0; b < arraysemen.length; b++) {
+      if (b === 0) {
+        data1 = data.filter(function filterss(data) {
+          console.log("KLEE122");
+          var arrayreturn = [
+            data.kecamatan.kabupaten.id == tambahKabupaten,
+            data.kecamatan.id == tambahKecamatan,
+            data.jenis_instansi.id == tambahJenisInstansi,
+            data.report_status == tambahStatusPelaporan,
+          ];
+          console.log("sss", dataArray);
+          return arrayreturn[arraysemen[b]];
+        });
+        console.log("data1", data1);
+      } else {
+        console.log("data12", data1);
+        data1 = data1.filter(function filterss(data) {
+          var arrayreturn = [
+            data.kecamatan.kabupaten.id == tambahKabupaten,
+            data.kecamatan.id == tambahKecamatan,
+            data.jenis_instansi.id == tambahJenisInstansi,
+            data.report_status == tambahStatusPelaporan,
+          ];
+          console.log("sss", dataArray);
+          return arrayreturn[arraysemen[b]];
+        });
+      }
+    }
   }
   if (status_code === 200) {
     $(".table-datatable").DataTable({
-      destroy : true,
+      destroy: true,
       fixedHeader: {
         header: true,
         footer: true,
@@ -243,7 +262,7 @@ data-target="#modal-edit-instansi" data-id="${obj.id}" data-name="${obj.name}" d
       $("#edit-status-pelaporan").val(otoritas_seluruh_pelaporan);
       $("#edit-active-status").val(status);
     });
-    $(".preloader").fadeOut(300);
+    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

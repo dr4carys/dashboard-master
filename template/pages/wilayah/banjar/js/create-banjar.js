@@ -4,6 +4,7 @@ $("#form-tambah-banjar").submit(async (e) => {
 });
 
 const addBanjar = async () => {
+  startLoading();
   const name = $("#tambah-banjar").val();
   const idDesa = $("#tambah-desa-adat").val();
 
@@ -17,7 +18,6 @@ const addBanjar = async () => {
     body: fd,
   });
   const { status_code, message, data } = await req.json();
-  
-  swal1(status_code,"banjar.html",addBanjar,refreshToken(),message);
-  
+  stopLoading();
+  swal1(status_code, "banjar.html", addBanjar, refreshToken(), message);
 };

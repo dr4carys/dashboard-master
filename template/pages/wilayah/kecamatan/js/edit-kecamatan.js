@@ -4,6 +4,7 @@ $("#form-edit-kecamatan").submit(async (e) => {
 });
 
 const updateKecamatan = async () => {
+  startLoading();
   const idKecamatan = $("#edit-id").val();
   const idKabupaten = $("#edit-kabupaten").val();
   const namaKecamatan = $("#edit-kecamatan").val();
@@ -21,5 +22,12 @@ const updateKecamatan = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  swal1(status_code,"kecamatan.html",updateKecamatan,refreshToken(),message);
+  stopLoading();
+  swal1(
+    status_code,
+    "kecamatan.html",
+    updateKecamatan,
+    refreshToken(),
+    message
+  );
 };

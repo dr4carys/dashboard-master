@@ -1,6 +1,6 @@
 $("#form-desa").submit(async (e) => {
   e.preventDefault();
-  $(".preloader").fadeIn(300);
+  startLoading();
   await readDesaAdat();
 });
 const active_status_badges = [
@@ -46,8 +46,6 @@ $(document).ready(async () => {
         });
     } else {
       $("#tambah-kecamatan").attr("disabled", "disabled");
-   
-      
     }
   });
   $("#tambah-kabupaten1").change((e) => {
@@ -62,7 +60,6 @@ $(document).ready(async () => {
         });
     } else {
       $("#tambah-kecamatan1").attr("disabled", "disabled");
-      
     }
   });
 
@@ -96,7 +93,6 @@ const readKabupaten = async () => {
 };
 
 const readKecamatan = async () => {
-
   const req = await fetch(
     "https://api.sipandu-beradat.id/kecamatan/?active_status=true"
   );
@@ -125,32 +121,33 @@ const readBanjar = async () => {
 //     return a.indexOf(item) == pos;
 // })
 const readDesaAdat = async () => {
-  var link 
+  startLoading();
+  var link;
   // $(".preloader").fadeIn(300);
-  const namaKabupaten = $("#tambah-kabupaten1 option:selected").text()
-  console.log(namaKabupaten)
-  const namaKecamatan = $("#tambah-kecamatan1 option:selected").text()
-  console.log(namaKecamatan)
-  const statusAktif = $("#status_aktif").val()
-  if(statusAktif ==1){
-    link= "https://api.sipandu-beradat.id/desa-adat/?active_status=true"
-  }else if(statusAktif == 0){
-    link= "https://api.sipandu-beradat.id/desa-adat/?active_status=false"
-  }else if(statusAktif == 2){
-    link= "https://api.sipandu-beradat.id/desa-adat/"
+  const namaKabupaten = $("#tambah-kabupaten1 option:selected").text();
+  console.log(namaKabupaten);
+  const namaKecamatan = $("#tambah-kecamatan1 option:selected").text();
+  console.log(namaKecamatan);
+  const statusAktif = $("#status_aktif").val();
+  if (statusAktif == 1) {
+    link = "https://api.sipandu-beradat.id/desa-adat/?active_status=true";
+  } else if (statusAktif == 0) {
+    link = "https://api.sipandu-beradat.id/desa-adat/?active_status=false";
+  } else if (statusAktif == 2) {
+    link = "https://api.sipandu-beradat.id/desa-adat/";
   }
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
-  console.log(data)
-  if(namaKabupaten === "Pilih Kabupaten" ){
-    var data1 = data
-  }else if(namaKecamatan != "Pilih Kecamatan"){
-    var data1 = data.filter(function filterss(data){
-      return data.kecamatan.name == namaKecamatan
+  console.log(data);
+  if (namaKabupaten === "Pilih Kabupaten") {
+    var data1 = data;
+  } else if (namaKecamatan != "Pilih Kecamatan") {
+    var data1 = data.filter(function filterss(data) {
+      return data.kecamatan.name == namaKecamatan;
     });
-  }else{
-    var data1 = data.filter(function filterss(data){
-      return data.kecamatan.kabupaten.name == namaKabupaten
+  } else {
+    var data1 = data.filter(function filterss(data) {
+      return data.kecamatan.kabupaten.name == namaKabupaten;
     });
   }
   if (status_code === 200) {
@@ -215,7 +212,7 @@ data-target="#modal-edit-desa-adat" data-id="${obj.id}" data-id-kabupaten="${obj
       $("#edit-longitude").val(longitude);
       $("#edit-active-status").val(status);
     });
-    $(".preloader").fadeOut(300);
+    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

@@ -4,7 +4,7 @@ $("#form-tambah-jenis-pelaporan").submit(async (e) => {
 });
 
 const addJenisPelaporan = async () => {
-  $(".preloader1").fadeIn(300);
+  startLoading();
   const name = $("#tambah-jenis-pelaporan").val();
   const icon = $("#tambah-icon").prop("files");
   const emergency_status = $("#tambah-status-pelaporan").val();
@@ -26,8 +26,13 @@ const addJenisPelaporan = async () => {
       body: fd,
     }
   );
-  $(".preloader1").fadeOut(300);
+  stopLoading();
   const { status_code, message, data } = await req.json();
-  swal1(status_code,"jenis-pelaporan.html",addJenisPelaporan,refreshToken(),message);
-  
+  swal1(
+    status_code,
+    "jenis-pelaporan.html",
+    addJenisPelaporan,
+    refreshToken(),
+    message
+  );
 };

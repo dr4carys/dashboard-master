@@ -4,7 +4,7 @@ $("#form-tambah-negara").submit(async (e) => {
 });
 
 const addNegara = async () => {
-  $(".preloader1").fadeIn(300);
+  startLoading();
   const name = $("#tambah-name").val();
   const icon = $("#tambah-icon").prop("files");
 
@@ -20,6 +20,6 @@ const addNegara = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  $(".preloader1").fadeOut(300);
-  swal1(status_code,"negara.html",addNegara,refreshToken(),message);
+  stopLoading();
+  swal1(status_code, "negara.html", addNegara, refreshToken(), message);
 };

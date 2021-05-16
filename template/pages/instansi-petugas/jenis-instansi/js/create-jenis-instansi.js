@@ -4,6 +4,7 @@ $("#form-tambah-jenis-instansi").submit(async (e) => {
 });
 
 const addJenisInstansi = async () => {
+  startLoading();
   const name = $("#tambah-jenis-instansi").val();
 
   const fd = new FormData();
@@ -18,7 +19,12 @@ const addJenisInstansi = async () => {
     }
   );
   const { status_code, data, message } = await req.json();
-
-  swal1(status_code,"jenis-instansi.html",addJenisInstansi,refreshToken(),message);
-
+  stopLoading();
+  swal1(
+    status_code,
+    "jenis-instansi.html",
+    addJenisInstansi,
+    refreshToken(),
+    message
+  );
 };

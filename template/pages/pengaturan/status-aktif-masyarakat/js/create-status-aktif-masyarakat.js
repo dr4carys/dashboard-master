@@ -4,6 +4,7 @@ $("#form-tambah-status-aktif-masyarakat").submit(async (e) => {
 });
 
 const addStatusMasyarakat = async () => {
+  startLoading();
   const name = $("#tambah-nama-status").val();
   const status = $("#tambah-status-masyarakat").val();
 
@@ -20,7 +21,7 @@ const addStatusMasyarakat = async () => {
     }
   );
   const { status_code, data, message } = await req.json();
-
+  stopLoading();
   if (status_code === 200) {
     alert(message);
     readStatusMasyarakat();

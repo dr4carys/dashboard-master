@@ -1,6 +1,6 @@
 $("#form-fasilitas").submit(async (e) => {
   e.preventDefault();
-  $(".preloader").fadeIn(300);
+  startLoading();
   await readNegara();
 });
 const active_status_badges = [
@@ -28,28 +28,26 @@ $(document).ready(() => {
   });
 });
 
-
-
 const readNegara = async () => {
-  $(".preloader").fadeIn(300);
-  var link =""
-  const statusAktif = $("#status_aktif").val()
+  startLoading();
+  var link = "";
+  const statusAktif = $("#status_aktif").val();
   // console.log(namaKabupaten)
-  if(statusAktif ==1){
-    link= "https://api.sipandu-beradat.id/negara/?active_status=true"
-  }else if(statusAktif == 0){
-    link= "https://api.sipandu-beradat.id/negara/?active_status=false"
-  }else if(statusAktif == 2){
-    link= "https://api.sipandu-beradat.id/negara/"
+  if (statusAktif == 1) {
+    link = "https://api.sipandu-beradat.id/negara/?active_status=true";
+  } else if (statusAktif == 0) {
+    link = "https://api.sipandu-beradat.id/negara/?active_status=false";
+  } else if (statusAktif == 2) {
+    link = "https://api.sipandu-beradat.id/negara/";
   }
-  
+
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
   // console.log(data[0])
-  
+
   if (status_code === 200) {
     $(".table-datatable").DataTable({
-      destroy : true,
+      destroy: true,
       fixedHeader: {
         header: true,
         footer: true,
@@ -82,8 +80,8 @@ const readNegara = async () => {
       $("#edit-name").val(name);
       $("#edit-active-status").val(status);
     });
-    $(".preloader").fadeOut(300);
-    $(".preloader1").fadeOut(300);
+    stopLoading();
+    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

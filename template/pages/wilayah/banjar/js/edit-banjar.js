@@ -4,6 +4,7 @@ $("#form-edit-banjar").submit(async (e) => {
 });
 
 const updateBanjar = async () => {
+  startLoading();
   const idBanjar = $("#edit-id").val();
   const namaDesaAdatEdit = $("#edit-desa-adat").val();
   const namaBanjarEdit = $("#edit-banjar").val();
@@ -21,6 +22,6 @@ const updateBanjar = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-
-  swal1(status_code,"banjar.html",updateBanjar,refreshToken(),message);
+  stopLoading();
+  swal1(status_code, "banjar.html", updateBanjar, refreshToken(), message);
 };

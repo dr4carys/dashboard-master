@@ -4,6 +4,7 @@ $("#form-tambah-kecamatan").submit(async (e) => {
 });
 
 const addKecamatan = async () => {
+  startLoading();
   const XAT = `Bearer ${localStorage.getItem("access_token")}`;
   const id_kabupaten_create = $("#tambah-kabupaten").val();
   const name = $("#tambah-kecamatan").val();
@@ -18,6 +19,6 @@ const addKecamatan = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  swal1(status_code,"kecamatan.html",addKecamatan,refreshToken(),message);
-  
+  stopLoading();
+  swal1(status_code, "kecamatan.html", addKecamatan, refreshToken(), message);
 };

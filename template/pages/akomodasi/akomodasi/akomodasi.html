@@ -30,26 +30,41 @@
   </head>
 
   <body>
-    <!-- <div class="preloader">
-      <div class="loading">
-        <img src="../../../assets/logo/loading.gif" width="80">
-        <p>Harap Tunggu</p>
+    <div
+      class="position-fixed fixed-top"
+      id="loading"
+      style="display: none; z-index: 9999"
+    >
+      <div
+        style="width: 100%; height: 100vh; background-color: rgba(0, 0, 0, 0.7)"
+        class="d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="d-flex justify-content-center align-items-center flex-column"
+        >
+          <div
+            class="spinner-border text-primary"
+            role="status"
+            style="width: 4rem; height: 4rem"
+          ></div>
+          <h5 class="text-light pt-4 zindex-modal">Sedang Memproses..</h5>
+        </div>
       </div>
-    </div> -->
+    </div>
     <div class="container-scroller">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div
           class="sidebar-brand-wrapper d-flex align-items-center justify-content-center"
         >
           <a class="sidebar-brand brand-logo" href="../../../index.html"
-            ><img src="../../../assets//logo/superadmin-white.png" alt="logo"
+            ><img src="../../../assets//logo/superadmin.png" alt="logo"
           /></a>
           <a class="sidebar-brand brand-logo-mini" href="../../../index.html"
             ><img src="../../../assets/logo/logosb.png" alt="logo"
           /></a>
         </div>
         <ul class="nav">
-          <li class="nav-item nav-profile my-2">
+          <li class="nav-item nav-profile bg-pink">
             <a href="#" class="nav-link">
               <div class="nav-profile-image">
                 <img
@@ -60,7 +75,7 @@
               </div>
               <div class="nav-profile-text d-flex flex-column pr-3">
                 <span
-                  class="font-weight-medium mb-2 text-light"
+                  class="font-weight-medium mb-2 text-dark"
                   id="sidebar-nama-admin"
                   >Super Admin</span
                 >
@@ -163,7 +178,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a
               class="nav-link"
               data-toggle="collapse"
@@ -171,9 +186,9 @@
               aria-expanded="false"
               aria-controls="ui-basic"
             >
-              <i class="mdi mdi-home-city menu-icon"></i>
+              <i class="mdi mdi-home-city menu-icon active"></i>
               <span class="menu-title">Akomodasi</span>
-              <i class="menu-arrow"></i>
+              <i class="menu-arrow active"></i>
             </a>
             <div class="collapse" id="nav-akomodasi">
               <ul class="nav flex-column sub-menu">
@@ -366,48 +381,50 @@
                     <h4 class="card-title mb-4 pb-2">Data Instansi</h4>
                     <form id="form-akomodasi">
                       <div class="row">
-                        <div class="form-group mb-4 col-md-4">
+                        <div class="form-group mb-4 col-md-2">
                           <label for="tambah-kabupaten">Kabupaten</label>
                           <select class="form-control" id="tambah-kabupaten1">
                             <option value="">Pilih Kabupaten</option>
                           </select>
                         </div>
-                        <div class="form-group mb-4 col-md-4">
+                        <div class="form-group mb-4 col-md-2">
                           <label for="tambah-kecamatan">Kecamatan</label>
                           <select class="form-control" id="tambah-kecamatan1">
                             <option value="">Pilih Kecamatan</option>
                           </select>
                         </div>
-                        <div class="form-group mb-4 col-md-4">
+                        <div class="form-group mb-4 col-md-2">
                         <label for="tambah-desa-adat">Desa Adat</label>
                         <select class="form-control" id="tambah-desa-adat1">
                           <option value="">Pilih Desa Adat</option>
                         </select>
                       </div>
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="tambah-kabupaten">status aktif</label>
+                        <div class="form-group mb-4 col-md-2">
+                          <label for="tambah-kabupaten">Status Aktif</label>
                           <select class="form-control" id="status_aktif">
                             <option value="2">Pilih Status</option>
                             <option value="1">Aktif</option>
-                            <option value="0">Tidak Aktif</option>
+                            <option value="0">Nonaktif</option>
                           </select>
                         </div>
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="buttonsubmit">tombol pilih</label>
-                          <button class = "form-control" type="submit" class="btn btn-primary">
-                            Pilih
+                        <div class="form-group mb-4 col-md-2">
+                          <label for="buttonsubmit"></label>
+                          <button
+                            class="
+                              form-control
+                              btn btn-sm btn-primary btn-icon-text
+                              mt-1
+                            "
+                            type="submit"
+                          >
+                            <i class="mdi mdi-magnify btn-icon-prepend"></i>Cari
                           </button>
                         </div>
                       </div>
                       </form>
                     <table class="table table-datatable" id="tabel-akomodasi">
                       <thead class="bg-light">
-                        <div class="preloader">
-                          <div class="loading">
-                            <img src="../../../assets/logo/loading.gif" width="80">
-                            <p>Harap Tunggu</p>
-                          </div>
-                        </div>
+                        
                         <tr>
                           <th>No.</th>
                           <th>Akomodasi</th>
@@ -454,12 +471,7 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <div class="preloader1">
-                      <div class="loading">
-                        <img src="../../../assets/logo/loading.gif" width="80">
-                        <p>Harap Tunggu</p>
-                      </div>
-                    </div>
+                    
                     <h6 class="modal-title mb-4 font-weight-bold">
                       Informasi Umum Akomodasi
                     </h6>
@@ -613,12 +625,7 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-group mb-4 col-md-12">
-                      <div class="preloader1">
-                        <div class="loading">
-                          <img src="../../../assets/logo/loading.gif" width="80">
-                          <p>Harap Tunggu</p>
-                        </div>
-                      </div>
+                      
                     <div class="row">
                         <label for="admin-name">Nama</label>
                         <input
@@ -826,12 +833,6 @@
             aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true"
           >
-          <div class="preloader1">
-            <div class="loading">
-              <img src="../../../assets/logo/loading.gif" width="80">
-              <p>Harap Tunggu</p>
-            </div>
-          </div>
             <div
               class="modal-dialog modal-dialog-centered modal-lg"
               role="document"
@@ -1029,5 +1030,6 @@
     <script src="js/delete-akomodasi.js"></script>
     <script src="../../../js/logout.js"></script>
     <script src="../../../assets/js/Auth/navbar-admin.js"></script>
+    <script src="../../../assets/js/loading.js"></script>
   </body>
 </html>

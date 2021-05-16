@@ -4,6 +4,7 @@ $("#form-tambah-pengaturan").submit(async (e) => {
 });
 
 const addPengaturan = async () => {
+  startLoading();
   const max_invalid_report = $("#tambah-max-report-status").val();
 
   const fd = new FormData();
@@ -15,6 +16,7 @@ const addPengaturan = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
+  stopLoading();
 
   if (status_code === 200) {
     alert(message);

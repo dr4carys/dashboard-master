@@ -3,6 +3,7 @@ $(document).ready(() => {
 });
 
 const readPengaturan = async () => {
+  startLoading();
   const req = await fetch("https://api.sipandu-beradat.id/pengaturan/");
   const { status_code, data, message } = await req.json();
 
@@ -14,5 +15,6 @@ const readPengaturan = async () => {
       },
       data: [[1, data.max_invalid_report]],
     });
+    stopLoading();
   }
 };

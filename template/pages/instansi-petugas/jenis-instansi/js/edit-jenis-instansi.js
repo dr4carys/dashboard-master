@@ -4,6 +4,7 @@ $("#form-edit-jenis-instansi").submit(async (e) => {
 });
 
 const updateJenisInstansi = async () => {
+  startLoading();
   const idJenisInstansi = $("#edit-id").val();
   const namaJenisInstansiEdit = $("#edit-jenis-instansi").val();
   const statusJenisInstansiEdit = $("#edit-active-status").val();
@@ -22,6 +23,12 @@ const updateJenisInstansi = async () => {
     }
   );
   const { status_code, data, message } = await req.json();
-
-  swal1(status_code,"jenis-instansi.html",updateJenisInstansi,refreshToken(),message);
+  stopLoading();
+  swal1(
+    status_code,
+    "jenis-instansi.html",
+    updateJenisInstansi,
+    refreshToken(),
+    message
+  );
 };

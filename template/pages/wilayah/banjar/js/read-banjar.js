@@ -1,6 +1,6 @@
 $("#form-banjar").submit(async (e) => {
   e.preventDefault();
-  $(".preloader").fadeIn(300);
+  startLoading();
   await readBanjar();
 });
 const active_status_badges = [
@@ -95,36 +95,37 @@ const readDesaAdat = async () => {
 };
 
 const readBanjar = async () => {
-  const namaKecamatan = $("#tambah-kecamatan1 option:selected").text()
+  startLoading();
+  const namaKecamatan = $("#tambah-kecamatan1 option:selected").text();
   // console.log(namaKabupaten)
-  const namaDesaAdat = $("#tambah-desa-adat1 option:selected").text()
+  const namaDesaAdat = $("#tambah-desa-adat1 option:selected").text();
   // console.log(namaKecamatan)
-  const statusAktif = $("#status_aktif").val()
-  if(statusAktif ==1){
-    link= "https://api.sipandu-beradat.id/banjar/?active_status=true"
-  }else if(statusAktif == 0){
-    link= "https://api.sipandu-beradat.id/banjar/?active_status=false"
-  }else if(statusAktif == 2){
-    link= "https://api.sipandu-beradat.id/banjar/"
+  const statusAktif = $("#status_aktif").val();
+  if (statusAktif == 1) {
+    link = "https://api.sipandu-beradat.id/banjar/?active_status=true";
+  } else if (statusAktif == 0) {
+    link = "https://api.sipandu-beradat.id/banjar/?active_status=false";
+  } else if (statusAktif == 2) {
+    link = "https://api.sipandu-beradat.id/banjar/";
   }
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
   // console.log(data)
-  if(namaKecamatan=== "Pilih Kecamatan" ){
-    var data1 = data
-  }else if(namaDesaAdat != "Pilih Desa Adat"){
-    var data1 = data.filter(function filterss(data){
-      return data.desa_adat.name == namaDesaAdat
+  if (namaKecamatan === "Pilih Kecamatan") {
+    var data1 = data;
+  } else if (namaDesaAdat != "Pilih Desa Adat") {
+    var data1 = data.filter(function filterss(data) {
+      return data.desa_adat.name == namaDesaAdat;
     });
-  }else{
-    var data1 = data.filter(function filterss(data){
-      return data.desa_adat.kecamatan.name == namaKecamatan
+  } else {
+    var data1 = data.filter(function filterss(data) {
+      return data.desa_adat.kecamatan.name == namaKecamatan;
     });
   }
 
   if (status_code === 200) {
     $(".table-datatable").DataTable({
-      destroy : true,
+      destroy: true,
       fixedHeader: {
         header: true,
         footer: true,
@@ -164,7 +165,7 @@ const readBanjar = async () => {
       $("#edit-banjar").val(name);
       $("#edit-active-status").val(status);
     });
-    $(".preloader").fadeOut(300);
+    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

@@ -4,7 +4,7 @@ $("#form-edit-fasilitas").submit(async (e) => {
 });
 
 const updateFasilitas = async () => {
-  $(".preloader1").fadeIn();
+  startLoading();
   const idFasilitas = $("#edit-id").val();
   const namaFasilitasEdit = $("#edit-fasilitas").val();
   const iconFasilitasEdit = $("#edit-icon").prop("files");
@@ -25,7 +25,12 @@ const updateFasilitas = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  $(".preloader1").fadeOut();
-  swal1(status_code,"fasilitas.html",updateFasilitas,refreshToken(),message);
- 
+  stopLoading();
+  swal1(
+    status_code,
+    "fasilitas.html",
+    updateFasilitas,
+    refreshToken(),
+    message
+  );
 };

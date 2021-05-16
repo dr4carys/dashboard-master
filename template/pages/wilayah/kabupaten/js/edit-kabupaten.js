@@ -4,6 +4,7 @@ $("#form-edit-kabupaten").submit(async (e) => {
 });
 
 const updateKabupaten = async () => {
+  startLoading();
   const idKabupaten = $("#edit-id").val();
   const namaProvinsiEdit = $("#edit-provinsi").val();
   const namaKabupatenEdit = $("#edit-kabupaten").val();
@@ -21,7 +22,14 @@ const updateKabupaten = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  swal1(status_code,"kabupaten.html",updateKabupaten,refreshToken(),message);
+  stopLoading();
+  swal1(
+    status_code,
+    "kabupaten.html",
+    updateKabupaten,
+    refreshToken(),
+    message
+  );
   // if (status_code === 200) {
   //   alert(message);
   //   readKabupaten();

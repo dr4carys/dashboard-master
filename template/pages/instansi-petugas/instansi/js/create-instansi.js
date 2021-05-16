@@ -4,6 +4,7 @@ $("#form-tambah-instansi").submit(async (e) => {
 });
 
 const addInstansi = async () => {
+  startLoading();
   const name = $("#tambah-instansi").val();
   const idKecamatan = $("#tambah-kecamatan").val();
   const idJenisInstansi = $("#tambah-jenis-instansi").val();
@@ -24,7 +25,8 @@ const addInstansi = async () => {
     }
   );
   const { status_code, message, data } = await req.json();
-  swal1(status_code,"instansi.html",addInstansi,refreshToken(),message);
+  stopLoading();
+  swal1(status_code, "instansi.html", addInstansi, refreshToken(), message);
   if (status_code === 200) {
     alert(message);
     readInstansi();

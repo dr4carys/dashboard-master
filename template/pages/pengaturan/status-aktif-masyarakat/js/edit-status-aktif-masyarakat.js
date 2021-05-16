@@ -4,6 +4,7 @@ $("#form-edit-status-aktif-masyarakat").submit(async (e) => {
 });
 
 const updateStatusMasyarakat = async () => {
+  startLoading();
   const id = $("#edit-id").val();
   const nama = $("#edit-nama-status").val();
   const status = $("#edit-status-masyarakat").val();
@@ -24,7 +25,7 @@ const updateStatusMasyarakat = async () => {
     }
   );
   const { status_code, data, message } = await req.json();
-
+  stopLoading();
   if (status_code === 200) {
     alert(message);
     readStatusMasyarakat();

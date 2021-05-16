@@ -4,7 +4,7 @@ $("#form-edit-akomodasi").submit(async (e) => {
 });
 
 const updateAkomodasi = async () => {
-  $(".preloader1").fadeIn(300);
+  startLoading();
   const id = $("#edit-id").val();
   const name = $("#edit-akomodasi").val();
   const idDesaAdat = $("#edit-desa-adat").val();
@@ -33,6 +33,12 @@ const updateAkomodasi = async () => {
   });
 
   const { status_code, message, data } = await req.json();
-  $(".preloader1").fadeOut(300);
-  swal1(status_code,"akomodasi.html",updateAkomodasi,refreshToken(),message);
+  stopLoading();
+  swal1(
+    status_code,
+    "akomodasi.html",
+    updateAkomodasi,
+    refreshToken(),
+    message
+  );
 };

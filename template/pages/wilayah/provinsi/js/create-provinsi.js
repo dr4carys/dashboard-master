@@ -4,6 +4,7 @@ $("#form-tambah-provinsi").submit(async (e) => {
 });
 
 const addProvinsi = async () => {
+  startLoading();
   const XAT = `Bearer ${localStorage.getItem("access_token")}`;
   const id_negara = $("#tambah-negara").val();
   const name = $("#tambah-provinsi").val();
@@ -18,8 +19,8 @@ const addProvinsi = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  $(".preloader1").fadeOut(300);
-  swal1(status_code,"provinsi.html",addProvinsi,refreshToken(),message);
+  stopLoading();
+  swal1(status_code, "provinsi.html", addProvinsi, refreshToken(), message);
   // if (status_code === 200) {
   //   alert(message);
   //   readProvinsi();

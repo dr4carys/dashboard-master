@@ -1,6 +1,6 @@
 $("#form-jenis-pelaporan").submit(async (e) => {
   e.preventDefault();
-  $(".preloader").fadeIn(300);
+  startLoading();
   await readJenisPelaporan();
 });
 const active_status_badges = [
@@ -34,37 +34,38 @@ $(document).ready(() => {
 });
 
 const readJenisPelaporan = async () => {
-  var link 
-  // $(".preloader").fadeIn(300);
-  const namaJenisPelaporan = $("#tambah-jenis-pelaporan").val()
-  
-  const statusAktif = $("#status_aktif").val()
-  if(statusAktif ==1){
-    link= "https://api.sipandu-beradat.id/jenis-pelaporan/?active_status=true"
-  }else if(statusAktif == 0){
-    link= "https://api.sipandu-beradat.id/jenis-pelaporan/?active_status=false"
-  }else if(statusAktif == 2){
-    link= "https://api.sipandu-beradat.id/jenis-pelaporan/"
+  var link;
+  startLoading();
+  const namaJenisPelaporan = $("#tambah-jenis-pelaporan").val();
+
+  const statusAktif = $("#status_aktif").val();
+  if (statusAktif == 1) {
+    link = "https://api.sipandu-beradat.id/jenis-pelaporan/?active_status=true";
+  } else if (statusAktif == 0) {
+    link =
+      "https://api.sipandu-beradat.id/jenis-pelaporan/?active_status=false";
+  } else if (statusAktif == 2) {
+    link = "https://api.sipandu-beradat.id/jenis-pelaporan/";
   }
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
-  console.log(data)
-  if(namaJenisPelaporan == 2 ){
-    console.log("hh")
-    var data1 = data
-  }else if(namaJenisPelaporan == 1){
-    var data1 = data.filter(function filterss(data){
-      return data.emergency_status == true
+  console.log(data);
+  if (namaJenisPelaporan == 2) {
+    console.log("hh");
+    var data1 = data;
+  } else if (namaJenisPelaporan == 1) {
+    var data1 = data.filter(function filterss(data) {
+      return data.emergency_status == true;
     });
-  }else if(namaJenisPelaporan == 0){
-    var data1 = data.filter(function filterss(data){
-      return data.emergency_status == false
+  } else if (namaJenisPelaporan == 0) {
+    var data1 = data.filter(function filterss(data) {
+      return data.emergency_status == false;
     });
   }
 
   if (status_code === 200) {
     $(".table-datatable").DataTable({
-      destroy:true,
+      destroy: true,
       fixedHeader: {
         header: true,
         footer: true,
@@ -100,7 +101,7 @@ const readJenisPelaporan = async () => {
       $("#edit-status-pelaporan").val(emergency_status);
       $("#edit-active-status").val(status);
     });
-    $(".preloader").fadeOut(300);
+    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

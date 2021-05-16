@@ -4,7 +4,7 @@ $("#form-edit-jenis-pelaporan").submit(async (e) => {
 });
 
 const updateJenisPelaporan = async () => {
-  $(".preloader1").fadeIn(300);
+  startLoading();
   const idJenisPelaporan = $("#edit-id").val();
   const jenisPelaporanEdit = $("#edit-jenis-pelaporan").val();
   const iconJenisPelaporanEdit = $("#edit-icon").prop("files");
@@ -29,8 +29,13 @@ const updateJenisPelaporan = async () => {
       body: fd,
     }
   );
-  $(".preloader1").fadeOut(300);
+  stopLoading();
   const { status_code, data, message } = await req.json();
-  swal1(status_code,"jenis-pelaporan.html",updateJenisPelaporan,refreshToken(),message);
- 
+  swal1(
+    status_code,
+    "jenis-pelaporan.html",
+    updateJenisPelaporan,
+    refreshToken(),
+    message
+  );
 };

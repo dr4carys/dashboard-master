@@ -4,6 +4,7 @@ $("#form-tambah-desa-adat").submit(async (e) => {
 });
 
 const addDesaAdat = async () => {
+  startLoading();
   const name = $("#tambah-desa-adat").val();
   const idKecamatan = $("#tambah-kecamatan").val();
   const latitude = $("#tambah-latitude").val();
@@ -21,6 +22,6 @@ const addDesaAdat = async () => {
     body: fd,
   });
   const { status_code, message, data } = await req.json();
-  swal1(status_code,"desa-adat.html",addDesaAdat,refreshToken(),message);
- 
+  stopLoading();
+  swal1(status_code, "desa-adat.html", addDesaAdat, refreshToken(), message);
 };

@@ -4,6 +4,7 @@ $("#form-tambah-super-admin").submit(async (e) => {
 });
 
 const addPetugas = async () => {
+  startLoading();
   const id_instansi = $("#edit-id").val();
   const name = $("#admin-name").val();
   const username = $("#admin-username").val();
@@ -59,6 +60,7 @@ const addSuperAdminInstansi = async (id) => {
   const { status_code, message } = await req2.json();
 
   if (status_code === 200 || status_code === 400) {
+    stopLoading();
     alert(message);
   } else if (status_code === 401) {
     refreshToken(() => addSuperAdminInstansi(id));

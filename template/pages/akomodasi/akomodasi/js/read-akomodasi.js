@@ -1,6 +1,6 @@
 $("#form-akomodasi").submit(async (e) => {
   e.preventDefault();
-  $(".preloader").fadeIn(300);
+  startLoading();
   await readAkomodasi();
 });
 const active_status_badges = [
@@ -9,7 +9,6 @@ const active_status_badges = [
 ];
 
 $(document).ready(async () => {
-  
   $("#tambah-kecamatan").attr("disabled", "disabled");
   $("#tambah-desa-adat").attr("disabled", "disabled");
   $("#tambah-kecamatan1").attr("disabled", "disabled");
@@ -131,7 +130,7 @@ $(document).ready(async () => {
       $("#tambah-desa-adat").attr("disabled", "disabled");
     }
   });
-  
+
   $("#tambah-kecamatan1").change((e) => {
     if (e.target.value) {
       $("#tambah-desa-adat1").removeAttr("disabled");
@@ -146,7 +145,6 @@ $(document).ready(async () => {
       $("#tambah-desa-adat1").attr("disabled", "disabled");
     }
   });
-
 
   $("#edit-kecamatan").change((e) => {
     if (e.target.value) {
@@ -204,40 +202,40 @@ const readDesaAdat = async () => {
 };
 
 const readAkomodasi = async () => {
-
-  var link 
+  startLoading();
+  var link;
   // $(".preloader").fadeIn(300);
-  const namaKecamatan = $("#tambah-kecamatan option:selected").text()
+  const namaKecamatan = $("#tambah-kecamatan option:selected").text();
   // console.log(namaKabupaten)
-  const namaDesaAdat = $("#tambah-desa-adat option:selected").text()
-   const statusAktif = $("#status_aktif").val()
+  const namaDesaAdat = $("#tambah-desa-adat option:selected").text();
+  const statusAktif = $("#status_aktif").val();
   // console.log(namaKabupaten)
-  if(statusAktif ==1){
-    link= "https://api.sipandu-beradat.id/akomodasi/?active_status=true"
-  }else if(statusAktif == 0){
-    link= "https://api.sipandu-beradat.id/akomodasi/?active_status=false"
-  }else if(statusAktif == 2){
-    link= "https://api.sipandu-beradat.id/akomodasi/"
+  if (statusAktif == 1) {
+    link = "https://api.sipandu-beradat.id/akomodasi/?active_status=true";
+  } else if (statusAktif == 0) {
+    link = "https://api.sipandu-beradat.id/akomodasi/?active_status=false";
+  } else if (statusAktif == 2) {
+    link = "https://api.sipandu-beradat.id/akomodasi/";
   }
-  
+
   const req = await fetch(link);
   const { status_code, data, message } = await req.json();
-  console.log(data)
-  if(namaKecamatan=== "Pilih Kecamatan" ){
-    var data1 = data
-  }else if(namaDesaAdat != "Pilih Desa Adat"){
-    var data1 = data.filter(function filterss(data){
-      return data.desa_adat.name == namaDesaAdat
+  console.log(data);
+  if (namaKecamatan === "Pilih Kecamatan") {
+    var data1 = data;
+  } else if (namaDesaAdat != "Pilih Desa Adat") {
+    var data1 = data.filter(function filterss(data) {
+      return data.desa_adat.name == namaDesaAdat;
     });
-  }else{
-    var data1 = data.filter(function filterss(data){
-      return data.desa_adat.kecamatan.name == namaKecamatan
+  } else {
+    var data1 = data.filter(function filterss(data) {
+      return data.desa_adat.kecamatan.name == namaKecamatan;
     });
   }
   if (status_code === 200) {
     $(".table-datatable").DataTable({
-      destroy:true,
-      DataTable : true,
+      destroy: true,
+      DataTable: true,
       fixedHeader: {
         header: true,
         footer: true,
@@ -292,8 +290,7 @@ const readAkomodasi = async () => {
       $("#edit-deskripsi").val(description);
       $("#edit-active-status").val(status);
     });
-    $(".preloader").fadeOut();
-    $(".preloader1").fadeOut();
+    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

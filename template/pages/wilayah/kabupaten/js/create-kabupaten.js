@@ -4,6 +4,7 @@ $("#form-tambah-kabupaten").submit(async (e) => {
 });
 
 const addKabupaten = async () => {
+  startLoading();
   const XAT = `Bearer ${localStorage.getItem("access_token")}`;
   const id_provinsi = $("#tambah-provinsi").val();
   const name = $("#tambah-kabupaten").val();
@@ -18,6 +19,6 @@ const addKabupaten = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-
-  swal1(status_code,"kabupaten.html",addKabupaten,refreshToken(),message);
+  stopLoading();
+  swal1(status_code, "kabupaten.html", addKabupaten, refreshToken(), message);
 };

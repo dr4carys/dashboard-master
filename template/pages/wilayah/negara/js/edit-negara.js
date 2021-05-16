@@ -4,7 +4,7 @@ $("#form-edit-negara").submit(async (e) => {
 });
 
 const updateNegara = async () => {
-  $(".preloader1").fadeIn(300);
+  startLoading();
   const idNegara = $("#edit-id").val();
   const namaNegara = $("#edit-name").val();
   const statusNegara = $("#edit-active-status").val();
@@ -24,6 +24,6 @@ const updateNegara = async () => {
     body: fd,
   });
   const { status_code, data, message } = await req.json();
-  $(".preloader1").fadeOut(300);
-  swal1(status_code,"negara.html",updateNegara,refreshToken(),message);
+  stopLoading();
+  swal1(status_code, "negara.html", updateNegara, refreshToken(), message);
 };

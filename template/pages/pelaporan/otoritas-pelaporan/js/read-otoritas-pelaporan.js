@@ -35,6 +35,7 @@ const readJenisPelaporan = async () => {
 };
 
 const readOtoritasPelaporan = async () => {
+  startLoading();
   const req = await fetch(
     "https://api.sipandu-beradat.id/otoritas-pelaporan-instansi/"
   );
@@ -53,7 +54,7 @@ const readOtoritasPelaporan = async () => {
         obj.jenis_pelaporan.name,
         `<div class="container-crud">
         <a href="#" class="btn btn-inverse-primary btn-rounded btn-icon btn-action mr-2 btn-edit" title="Edit" data-toggle="modal"
-        data-target="#modal-edit-jenis-pelaporan" data-id="${obj.id}" data-id-instansi="${obj.instansi_petugas.id}" data-id-jenis-pelaporan="${obj.jenis_pelaporan.id}">
+        data-target="#modal-edit-otoritas-pelaporan" data-id="${obj.id}" data-id-instansi="${obj.instansi_petugas.id}" data-id-jenis-pelaporan="${obj.jenis_pelaporan.id}">
 <i class="mdi mdi-pencil"></i>
         </a>
         <a href="#" class="btn btn-inverse-primary-red btn-rounded btn-icon btn-action mr-2 btn-delete" title="Delete" data-toggle="modal"
@@ -75,8 +76,7 @@ const readOtoritasPelaporan = async () => {
       $("#edit-instansi").val(id_instansi);
       $("#edit-jenis-pelaporan").val(id_jenis_pelaporan);
     });
-    $(".preloader").fadeOut(300);
-    $(".preloader1").fadeOut(300);
+    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

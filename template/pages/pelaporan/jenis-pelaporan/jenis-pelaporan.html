@@ -30,20 +30,46 @@
   </head>
 
   <body>
+    <div
+      class="position-fixed fixed-top"
+      id="loading"
+      style="display: none; z-index: 9999"
+    >
+      <div
+        style="width: 100%; height: 100vh; background-color: rgba(0, 0, 0, 0.7)"
+        class="d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="d-flex justify-content-center align-items-center flex-column"
+        >
+          <div
+            class="spinner-border text-primary"
+            role="status"
+            style="width: 4rem; height: 4rem"
+          ></div>
+          <h5 class="text-light pt-4 zindex-modal">Sedang Memproses..</h5>
+        </div>
+      </div>
+    </div>
     <div class="container-scroller">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div
-          class="sidebar-brand-wrapper d-flex align-items-center justify-content-center"
+          class="
+            sidebar-brand-wrapper
+            d-flex
+            align-items-center
+            justify-content-center
+          "
         >
           <a class="sidebar-brand brand-logo" href="../../../index.html"
-            ><img src="../../../assets//logo/superadmin-white.png" alt="logo"
+            ><img src="../../../assets//logo/superadmin.png" alt="logo"
           /></a>
           <a class="sidebar-brand brand-logo-mini" href="../../../index.html"
             ><img src="../../../assets/logo/logosb.png" alt="logo"
           /></a>
         </div>
         <ul class="nav">
-          <li class="nav-item nav-profile my-2">
+          <li class="nav-item nav-profile bg-pink">
             <a href="#" class="nav-link">
               <div class="nav-profile-image">
                 <img
@@ -54,7 +80,7 @@
               </div>
               <div class="nav-profile-text d-flex flex-column pr-3">
                 <span
-                  class="font-weight-medium mb-2 text-light"
+                  class="font-weight-medium mb-2 text-dark"
                   id="sidebar-nama-admin"
                   >Super Admin</span
                 >
@@ -188,7 +214,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a
               class="nav-link"
               data-toggle="collapse"
@@ -196,9 +222,9 @@
               aria-expanded="false"
               aria-controls="ui-basic"
             >
-              <i class="mdi mdi-file-multiple menu-icon"></i>
+              <i class="mdi mdi-file-multiple menu-icon active"></i>
               <span class="menu-title">Pelaporan</span>
-              <i class="menu-arrow"></i>
+              <i class="menu-arrow active"></i>
             </a>
             <div class="collapse" id="nav-pelaporan">
               <ul class="nav flex-column sub-menu">
@@ -275,7 +301,12 @@
         </div>
         <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
           <div
-            class="navbar-menu-wrapper d-flex align-items-center justify-content-between"
+            class="
+              navbar-menu-wrapper
+              d-flex
+              align-items-center
+              justify-content-between
+            "
           >
             <a
               class="navbar-brand brand-logo-mini align-self-center d-lg-none"
@@ -319,7 +350,11 @@
               </li>
             </ul>
             <button
-              class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+              class="
+                navbar-toggler navbar-toggler-right
+                d-lg-none
+                align-self-center
+              "
               type="button"
               data-toggle="offcanvas"
             >
@@ -364,39 +399,43 @@
                       <div class="row">
                         <div class="form-group mb-4 col-md-4">
                           <label for="tambah-kecamatan">Status Pelaporan</label>
-                          <select class="form-control" id="tambah-jenis-pelaporan">
+                          <select
+                            class="form-control"
+                            id="tambah-jenis-pelaporan"
+                          >
                             <option value="2">Pilih Jenis Pelaporan</option>
                             <option value="1">Darurat</option>
-                            <option value="0">Tidak Darurat</option>
+                            <option value="0">Keluhan</option>
                           </select>
                         </div>
                         <div class="form-group mb-4 col-md-4">
-                          <label for="tambah-kabupaten">status aktif</label>
+                          <label for="tambah-kabupaten">Status Aktif</label>
                           <select class="form-control" id="status_aktif">
                             <option value="2">Pilih Status</option>
                             <option value="1">Aktif</option>
-                            <option value="0">Tidak Aktif</option>
+                            <option value="0">Nonaktif</option>
                           </select>
                         </div>
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="buttonsubmit">tombol pilih</label>
-                          <button class = "form-control" type="submit" class="btn btn-primary">
-                            Pilih
+                        <div class="form-group mb-4 col-md-2">
+                          <label for="buttonsubmit"></label>
+                          <button
+                            class="
+                              form-control
+                              btn btn-sm btn-primary btn-icon-text
+                              mt-1
+                            "
+                            type="submit"
+                          >
+                            <i class="mdi mdi-magnify btn-icon-prepend"></i>Cari
                           </button>
                         </div>
                       </div>
-                      </form>
+                    </form>
                     <table
                       class="table table-datatable"
                       id="tabel-jenis-pelaporan"
                     >
                       <thead class="bg-light">
-                        <div class="preloader">
-                          <div class="loading">
-                            <img src="../../../assets/logo/loading.gif" width="80">
-                            <p>Harap Tunggu</p>
-                          </div>
-                        </div>
                         <tr>
                           <th>No.</th>
                           <th>Jenis Pelaporan</th>
@@ -426,75 +465,73 @@
             >
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                  <div class="preloader1">
-                    <div class="loading">
-                      <img src="../../../assets/logo/loading.gif" width="80">
-                      <p>Harap Tunggu</p>
-                    </div>
-                  </div>
                   <tr>
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">
-                      Tambah Data Jenis Pelaporan
-                    </h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group mb-4">
-                      <label for="tambah-jenis-pelaporan"
-                        >Jenis Pelaporan</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="tambah-jenis-pelaporan"
-                        placeholder="Inputkan Jenis Pelaporan"
-                      />
-                    </div>
-                    <div class="form-group mb-4">
-                      <label for="tambah-icon">Icon</label>
-                      <div class="custom-file">
-                        <input
-                          type="file"
-                          class="custom-file-input"
-                          id="tambah-icon"
-                          lang="en"
-                        />
-                        <label
-                          class="custom-file-label"
-                          for="tambah-icon"
-                          id="label-tambah-icon"
-                          >Select file</label
-                        >
-                      </div>
-                    </div>
-                    <div class="form-group mb-4">
-                      <label>Status Pelaporan</label>
-                      <select class="form-control" id="tambah-status-pelaporan">
-                        <option value="true">Darurat</option>
-                        <option value="false">Keluhan</option>
-                      </select>
-                    </div>
-                    <div class="modal-footer">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">
+                        Tambah Data Jenis Pelaporan
+                      </h5>
                       <button
                         type="button"
-                        class="btn btn-secondary"
+                        class="close"
                         data-dismiss="modal"
+                        aria-label="Close"
                       >
-                        Batal
-                      </button>
-                      <button type="submit" class="btn btn-primary">
-                        Simpan
+                        <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                  </div>
+                    <div class="modal-body">
+                      <div class="form-group mb-4">
+                        <label for="tambah-jenis-pelaporan"
+                          >Jenis Pelaporan</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="tambah-jenis-pelaporan"
+                          placeholder="Inputkan Jenis Pelaporan"
+                        />
+                      </div>
+                      <div class="form-group mb-4">
+                        <label for="tambah-icon">Icon</label>
+                        <div class="custom-file">
+                          <input
+                            type="file"
+                            class="custom-file-input"
+                            id="tambah-icon"
+                            lang="en"
+                          />
+                          <label
+                            class="custom-file-label"
+                            for="tambah-icon"
+                            id="label-tambah-icon"
+                            >Select file</label
+                          >
+                        </div>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label>Status Pelaporan</label>
+                        <select
+                          class="form-control"
+                          id="tambah-status-pelaporan"
+                        >
+                          <option value="true">Darurat</option>
+                          <option value="false">Keluhan</option>
+                        </select>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Batal
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                          Simpan
+                        </button>
+                      </div>
+                    </div>
+                  </tr>
                 </div>
               </div>
             </div>
@@ -600,97 +637,107 @@
           >
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
-                <div class="preloader1">
-                  <div class="loading">
-                    <img src="../../../assets/logo/loading.gif" width="80">
-                    <p>Harap Tunggu</p>
-                  </div>
-                </div>
                 <tr>
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">
-                    Edit Data Jenis Pelaporan
-                  </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form id="form-edit-jenis-pelaporan">
-                    <input type="hidden" id="edit-id" />
-                    <div class="form-group mb-4">
-                      <label for="edit-jenis-pelaporan">Jenis Pelaporan</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="edit-jenis-pelaporan"
-                        placeholder="Inputkan Jenis Pelaporan"
-                      />
-                    </div>
-                    <div class="form-group mb-4">
-                      <label for="edit-icon">Icon</label>
-                      <div class="custom-file">
-                        <input
-                          type="file"
-                          class="custom-file-input"
-                          id="edit-icon"
-                          lang="en"
-                        />
-                        <label
-                          class="custom-file-label"
-                          for="edit-icon"
-                          id="label-edit-icon"
-                          >Select file</label
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                      Edit Data Jenis Pelaporan
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="form-edit-jenis-pelaporan">
+                      <input type="hidden" id="edit-id" />
+                      <div class="form-group mb-4">
+                        <label for="edit-jenis-pelaporan"
+                          >Jenis Pelaporan</label
                         >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="edit-jenis-pelaporan"
+                          placeholder="Inputkan Jenis Pelaporan"
+                        />
                       </div>
-                    </div>
-                    <div class="form-group mb-4">
-                      <label>Status Pelaporan</label>
-                      <select class="form-control" id="edit-status-pelaporan">
-                        <option value="true">Darurat</option>
-                        <option value="false">Keluhan</option>
-                      </select>
-                    </div>
-                    <div class="form-group mb-4">
-                      <label>Status Aktif</label>
-                      <select class="form-control" id="edit-active-status">
-                        <option value="true">Aktif</option>
-                        <option value="false">Nonaktif</option>
-                      </select>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-dismiss="modal"
-                      >
-                        Batal
-                      </button>
-                      <button type="submit" class="btn btn-primary">
-                        Simpan
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                      <div class="form-group mb-4">
+                        <label for="edit-icon">Icon</label>
+                        <div class="custom-file">
+                          <input
+                            type="file"
+                            class="custom-file-input"
+                            id="edit-icon"
+                            lang="en"
+                          />
+                          <label
+                            class="custom-file-label"
+                            for="edit-icon"
+                            id="label-edit-icon"
+                            >Select file</label
+                          >
+                        </div>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label>Status Pelaporan</label>
+                        <select class="form-control" id="edit-status-pelaporan">
+                          <option value="true">Darurat</option>
+                          <option value="false">Keluhan</option>
+                        </select>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label>Status Aktif</label>
+                        <select class="form-control" id="edit-active-status">
+                          <option value="true">Aktif</option>
+                          <option value="false">Nonaktif</option>
+                        </select>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Batal
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                          Simpan
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </tr>
               </div>
             </div>
           </div>
 
           <footer class="footer">
             <div
-              class="d-sm-flex justify-content-center justify-content-sm-between"
+              class="
+                d-sm-flex
+                justify-content-center justify-content-sm-between
+              "
             >
               <span
-                class="text-muted d-block text-center text-sm-left d-sm-inline-block"
+                class="
+                  text-muted
+                  d-block
+                  text-center text-sm-left
+                  d-sm-inline-block
+                "
                 >Copyright © bootstrapdash.com 2020</span
               >
               <span
-                class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"
+                class="
+                  float-none float-sm-right
+                  d-block
+                  mt-1 mt-sm-0
+                  text-center
+                "
               >
                 Free
                 <a href="https://www.bootstrapdash.com/" target="_blank"
@@ -725,5 +772,6 @@
     <script src="js/delete-jenis-pelaporan.js"></script>
     <script src="../../../js/logout.js"></script>
     <script src="../../../assets/js/Auth/navbar-admin.js"></script>
+    <script src="../../../assets/js/loading.js"></script>
   </body>
 </html>
