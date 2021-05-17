@@ -26,6 +26,11 @@ $(document).ready(() => {
       $("#label-edit-icon").text("Select file");
     }
   });
+  $("#form-fasilitas").submit(async (e) => {
+    e.preventDefault();
+    startLoading();
+    await readFasilitas();
+  });
   $("#status_aktif").change((e) => {
     readFasilitas();
   });

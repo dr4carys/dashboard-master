@@ -4,7 +4,6 @@ $("#form-tambah-otoritas-pelaporan").submit(async (e) => {
 });
 
 const addOtoritasPelaporan = async () => {
-  startLoading();
   const namaInstansi = $("#tambah-instansi").val();
   const jenisPelaporan = $("#tambah-jenis-pelaporan").val();
 
@@ -20,13 +19,7 @@ const addOtoritasPelaporan = async () => {
       body: fd,
     }
   );
-  stopLoading();
   const { status_code, message, data } = await req.json();
-  swal1(
-    status_code,
-    "otoritas-pelaporan.html",
-    addOtoritasPelaporan,
-    refreshToken(),
-    message
-  );
+  swal1(status_code,"otoritas-pelaporan.html",addOtoritasPelaporan,refreshToken(),message);
+  
 };
