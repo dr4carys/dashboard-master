@@ -1,6 +1,7 @@
 $("#form-mapsbaru").submit(async (e) => {
   e.preventDefault();
   await getDesaAdat1();
+
 });
 
 const getDesaAdat = async () => {
@@ -15,6 +16,16 @@ const getDesaAdat = async () => {
     await getDesaAdat();
   }
 };
+$(document).ready(() => {
+  $("#tambah-kabupaten").change((e) => {
+    console.log("SSSSSSSSSSSSSS")
+    getDesaAdat1();
+  });
+  $("#tambah-kecamatan").change((e) => {
+    console.log("kkkkkkkkk")
+    getDesaAdat1();
+  });
+})
 
 const getDesaAdat1 = async () => {
   const desaAdats = await getDesaAdat();
