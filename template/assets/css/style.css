@@ -10666,6 +10666,11 @@ a.close.disabled {
   }
 }
 
+.swal2-styled.swal2-confirm {
+  background-color: #d62d2e !important;
+  border-radius: 50px !important;
+}
+
 .modal.show .modal-dialog {
   -webkit-transform: none;
   transform: none;

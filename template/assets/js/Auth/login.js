@@ -15,6 +15,7 @@ $(document).ready(() => {
 $("#btn-refresh-captcha").click(() => getCaptcha());
 
 $("form").submit(async (e) => {
+  startLoading();
   e.preventDefault();
 
   const username = $("#username").val();
@@ -38,11 +39,13 @@ $("form").submit(async (e) => {
     localStorage.setItem("refresh_token", data.refresh_token);
     localStorage.setItem("username", username);
 
+    stopLoading();
+
     Swal.fire({
       title: "Berhasil!",
       text: message,
       icon: "success",
-      confirmButtonText: '<i class="fas fa-tachometer-alt pr-2"></i>Dashboard',
+      confirmButtonText: "Dashboard",
     }).then((result) => {
       if (result.isConfirmed) {
         window.location.href = "../../index.html";

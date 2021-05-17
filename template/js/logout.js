@@ -19,7 +19,7 @@ const logout = async () => {
     localStorage.removeItem("username");
 
     window.location.href =
-      "file:///D:/Dwiki/SMT%208/Topik%20Khusus%20TC/Web/dashboard-master/template/pages/login/login.html";
+      "file:///D:/Dwiki/SMT%208/Topik%20Khusus%20TC/Web%20SIpandu%20Beradat/web-super-admin/dashboard-master/template/pages/login/login.html";
   } else if (status_code === 401) {
     refreshToken(logout);
   } else {
