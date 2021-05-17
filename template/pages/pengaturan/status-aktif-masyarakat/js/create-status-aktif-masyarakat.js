@@ -22,12 +22,11 @@ const addStatusMasyarakat = async () => {
   );
   const { status_code, data, message } = await req.json();
   stopLoading();
-  if (status_code === 200) {
-    alert(message);
-    readStatusMasyarakat();
-  } else if (status_code === 400) {
-    alert(message);
-  } else if (status_code === 401) {
-    refreshToken(addStatusMasyarakat);
-  }
+  swal1(
+    status_code,
+    "status-aktif-masyarakat.html",
+    addStatusMasyarakat,
+    refreshToken(),
+    message
+  );
 };

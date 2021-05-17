@@ -18,12 +18,12 @@ const addPengaturan = async () => {
   const { status_code, data, message } = await req.json();
   stopLoading();
 
-  if (status_code === 200) {
-    alert(message);
-    readPengaturan();
-  } else if (status_code === 400) {
-    alert(message);
-  } else if (status_code === 401) {
-    refreshToken(addPengaturan);
-  }
+  swal1(
+    status_code,
+    "pengaturan.html",
+    addPengaturan,
+    refreshToken(),
+    message
+  );
+
 };

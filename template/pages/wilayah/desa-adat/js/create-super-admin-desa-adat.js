@@ -60,11 +60,7 @@ const addSuperAdminDesaAdat = async (id) => {
     }
   );
   const { status_code, message } = await req2.json();
+  stopLoading();
+  swal1(status_code, "desa-adat.html", addSuperAdminDesaAdat, refreshToken(), message);
 
-  if (status_code === 200 || status_code === 400) {
-    stopLoading();
-    alert(message);
-  } else if (status_code === 401) {
-    refreshToken(() => addSuperAdminDesaAdat(id));
-  }
 };
