@@ -1,8 +1,3 @@
-$("#form-fasilitas").submit(async (e) => {
-  e.preventDefault();
-  startLoading();
-  await readNegara();
-});
 const active_status_badges = [
   "<label class='badge badge-primary-red'>Nonaktif</label>",
   "<label class='badge badge-success'>Aktif</label>",
@@ -28,36 +23,19 @@ $(document).ready(() => {
   });
   $("#status_aktif").change((e) => {
     readNegara();
-  
-});
+  });
 });
 
 const readNegara = async () => {
   startLoading();
-  var link = "";
-  const statusAktif = $("#status_aktif").val();
-  // console.log(namaKabupaten)
-  if (statusAktif == 1) {
-    link = "https://api.sipandu-beradat.id/negara/?active_status=true";
-  } else if (statusAktif == 0) {
-    link = "https://api.sipandu-beradat.id/negara/?active_status=false";
-  } else if (statusAktif == 2) {
-    link = "https://api.sipandu-beradat.id/negara/";
-  }
-
-  const req = await fetch(link);
-  const { status_code, data, message } = await req.json();
-  // console.log(data[0])
+  const req = await fetch("https://api.sipandu-beradat.id/negara/");
+  const { status_code, data } = await req.json();
 
   if (status_code === 200) {
-    $(".table-datatable").DataTable({
-      destroy: true,
-      fixedHeader: {
-        header: true,
-        footer: true,
-      },
-      columnDefs: [{ orderable: false, targets: [2, 4] }],
-      data: data.map((obj, i) => [
+    setupFilterDataTable(
+      "tabel-negara",
+      [2, 4],
+      data.map((obj, i) => [
         i + 1,
         obj.name,
         `<img src="${obj.flag}"></img>`,
@@ -72,8 +50,10 @@ const readNegara = async () => {
         <i class="mdi mdi-delete"></i>
         </a>
     </div>`,
-      ]),
-    });
+      ])
+    );
+
+    stopLoading();
 
     $("tbody").on("click", ".btn-edit", (e) => {
       const id = $(e.currentTarget).attr("data-id");
@@ -84,8 +64,7 @@ const readNegara = async () => {
       $("#edit-name").val(name);
       $("#edit-active-status").val(status);
     });
-    stopLoading();
-    stopLoading();
+
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

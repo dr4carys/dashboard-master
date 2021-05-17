@@ -25,6 +25,6 @@ function swal1(status_code, prov, updateProvinsi, refreshToken, message) {
     // icon: "error",
     // confirmButtonText: "Tutup",
     // });
-    refreshToken(updateProvinsi);
+    refreshToken();
   }
 }

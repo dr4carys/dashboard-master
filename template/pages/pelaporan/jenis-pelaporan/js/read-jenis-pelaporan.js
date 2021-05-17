@@ -34,44 +34,15 @@ $(document).ready(() => {
 });
 
 const readJenisPelaporan = async () => {
-  var link;
   startLoading();
-  const namaJenisPelaporan = $("#tambah-jenis-pelaporan").val();
-
-  const statusAktif = $("#status_aktif").val();
-  if (statusAktif == 1) {
-    link = "https://api.sipandu-beradat.id/jenis-pelaporan/?active_status=true";
-  } else if (statusAktif == 0) {
-    link =
-      "https://api.sipandu-beradat.id/jenis-pelaporan/?active_status=false";
-  } else if (statusAktif == 2) {
-    link = "https://api.sipandu-beradat.id/jenis-pelaporan/";
-  }
-  const req = await fetch(link);
+  const req = await fetch("https://api.sipandu-beradat.id/jenis-pelaporan/");
   const { status_code, data, message } = await req.json();
-  console.log(data);
-  if (namaJenisPelaporan == 2) {
-    console.log("hh");
-    var data1 = data;
-  } else if (namaJenisPelaporan == 1) {
-    var data1 = data.filter(function filterss(data) {
-      return data.emergency_status == true;
-    });
-  } else if (namaJenisPelaporan == 0) {
-    var data1 = data.filter(function filterss(data) {
-      return data.emergency_status == false;
-    });
-  }
 
   if (status_code === 200) {
-    $(".table-datatable").DataTable({
-      destroy: true,
-      fixedHeader: {
-        header: true,
-        footer: true,
-      },
-      columnDefs: [{ orderable: false, targets: [2, 5] }],
-      data: data1.map((obj, i) => [
+    setupFilterDataTable(
+      "tabel-jenis-pelaporan",
+      [3],
+      data.map((obj, i) => [
         i + 1,
         obj.name,
         `<img src="${obj.icon}"></img>`,
@@ -87,8 +58,10 @@ const readJenisPelaporan = async () => {
         <i class="mdi mdi-delete"></i>
         </a>
     </div>`,
-      ]),
-    });
+      ])
+    );
+
+    stopLoading();
 
     $("tbody").on("click", ".btn-edit", (e) => {
       const id = $(e.currentTarget).attr("data-id");
@@ -101,7 +74,7 @@ const readJenisPelaporan = async () => {
       $("#edit-status-pelaporan").val(emergency_status);
       $("#edit-active-status").val(status);
     });
-    stopLoading();
+
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

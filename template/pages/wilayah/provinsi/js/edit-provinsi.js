@@ -1,4 +1,3 @@
-// import { swal1 } from 'swaloading.js';
 $("#form-edit-provinsi").submit(async (e) => {
   e.preventDefault();
   await updateProvinsi();
@@ -25,13 +24,4 @@ const updateProvinsi = async () => {
   const { status_code, data, message } = await req.json();
   stopLoading();
   swal1(status_code, "provinsi.html", updateProvinsi, refreshToken(), message);
-
-  // if (status_code === 200) {
-  //   alert(message);
-  //   readProvinsi();
-  // } else if (status_code === 400) {
-  //   alert(message);
-  // } else if (status_code === 401) {
-  //   refreshToken(updateProvinsi);
-  // }
 };

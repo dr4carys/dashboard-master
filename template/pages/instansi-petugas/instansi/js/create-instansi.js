@@ -24,11 +24,10 @@ const addInstansi = async () => {
       body: fd,
     }
   );
-  const { status_code, message, data } = await req.json();
+  const { status_code, message } = await req.json();
   stopLoading();
   swal1(status_code, "instansi.html", addInstansi, refreshToken(), message);
   if (status_code === 200) {
-    alert(message);
     readInstansi();
   } else if (status_code === 400) {
     alert(message);

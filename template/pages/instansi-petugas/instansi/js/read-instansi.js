@@ -1,8 +1,3 @@
-$("#form-instansi").submit(async (e) => {
-  e.preventDefault();
-  startLoading();
-  await readInstansi();
-});
 const report_status_texts = ["Tidak", "Kustom", "Seluruhnya"];
 const report_status_badges = [
   "<label class='badge badge-primary-red'>Tidak</label>",
@@ -16,10 +11,9 @@ const active_status_badges = [
 
 $(document).ready(async () => {
   $("#tambah-kecamatan").attr("disabled", "disabled");
-  $("#tambah-kecamatan1").attr("disabled", "disabled");
   const kabupatens = await readKabupaten();
   const kecamatans = await readKecamatan();
-  const jenisInstansi = await readJenisInstansi();
+  await readJenisInstansi();
   await readInstansi();
 
   $("#admin-profil-pic").change((e) => {
@@ -29,11 +23,10 @@ $(document).ready(async () => {
       $("#label-admin-profil-pic").text("Select file");
     }
   });
+
   kabupatens.map((obj) => {
     const option = `<option value="${obj.id}">${obj.name}</option>`;
     $("#tambah-kabupaten").append(option);
-    const option1 = `<option value="${obj.id}">${obj.name}</option>`;
-    $("#tambah-kabupaten1").append(option1);
     $("#edit-kabupaten").append(option);
   });
 
@@ -49,20 +42,6 @@ $(document).ready(async () => {
         });
     } else {
       $("#tambah-kecamatan").attr("disabled", "disabled");
-    }
-  });
-  $("#tambah-kabupaten1").change((e) => {
-    if (e.target.value) {
-      $("#tambah-kecamatan1").removeAttr("disabled");
-      $("#tambah-kecamatan1").html("");
-      kecamatans
-        .filter((obj) => obj.kabupaten.id === Number(e.target.value))
-        .map((obj) => {
-          const option = `<option value="${obj.id}">${obj.name}</option>`;
-          $("#tambah-kecamatan1").append(option);
-        });
-    } else {
-      $("#tambah-kecamatan1").attr("disabled", "disabled");
     }
   });
 
@@ -118,7 +97,6 @@ const readJenisInstansi = async () => {
     data.map((obj) => {
       const option = `<option value="${obj.id}">${obj.name}</option>`;
       $("#tambah-jenis-instansi").append(option);
-      $("#tambah-jenis-instansi1").append(option);
       $("#edit-jenis-instansi").append(option);
     });
   } else {
@@ -127,91 +105,15 @@ const readJenisInstansi = async () => {
 };
 
 const readInstansi = async () => {
-  console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-  var link = "";
   startLoading();
-  const tambahKabupaten = $("#tambah-kabupaten1").val();
-  const tambahKecamatan = $("#tambah-kecamatan1").val();
-  const tambahJenisInstansi = $("#tambah-jenis-instansi1").val();
-  const tambahStatusPelaporan = $("#tambah-status-pelaporan1").val();
-  console.log(tambahStatusPelaporan)
-  
-  const statusAktif = $("#status_aktif").val();
-  console.log("status",statusAktif)
-  var arraysemen = [];
-  if (statusAktif == 1) {
-    link =
-      "https://api.sipandu-beradat.id/instansi-petugas/?active_status=true";
-  } else if (statusAktif == 0) {
-    link =
-      "https://api.sipandu-beradat.id/instansi-petugas/?active_status=false";
-  } else if (statusAktif == "c") {
-    link = "https://api.sipandu-beradat.id/instansi-petugas/";
-  }
-  console.log(link);
-  const req = await fetch(link);
-  const { status_code, data, message } = await req.json();
-  console.log(data);
-  var dataArray = [
-    tambahKabupaten,
-    tambahKecamatan,
-    tambahJenisInstansi,
-    tambahStatusPelaporan
-  ];
-  if (
-    tambahKabupaten == "c" &&
-    tambahKabupaten == "c" &&
-    tambahJenisInstansi == "c" &&
-    tambahStatusPelaporan == "c" 
-  ){
-    data1 = data;
-  } else {
-    console.log("hh1");
-    for (var c = 0; c < dataArray.length; c++) {
-      if (dataArray[c] !== "c" ) {
-        console.log("yy", dataArray[c]);
-        arraysemen.push(c);
-      }
-    }
-    console.log("panjgan kl", arraysemen);
-    for (var b = 0; b < arraysemen.length; b++) {
-      if (b === 0) {
-        data1 = data.filter(function filterss(data) {
-          console.log("KLEE122");
-          var arrayreturn = [
-            data.kecamatan.kabupaten.id == tambahKabupaten,
-            data.kecamatan.id == tambahKecamatan,
-            data.jenis_instansi.id == tambahJenisInstansi,
-            data.report_status == tambahStatusPelaporan,
-          ];
-          console.log("sss", dataArray);
-          return arrayreturn[arraysemen[b]];
-        });
-        console.log("data1", data1);
-      } else {
-        // console.log("data12", data1);
-        data1 = data1.filter(function filterss(data) {
-          var arrayreturn = [
-            data.kecamatan.kabupaten.id == tambahKabupaten,
-            data.kecamatan.id == tambahKecamatan,
-            data.jenis_instansi.id == tambahJenisInstansi,
-            data.report_status == tambahStatusPelaporan,
-          ];
-          console.log("sss", dataArray);
-          return arrayreturn[arraysemen[b]];
-        });
-      }
-    }
-  }
+  const req = await fetch("https://api.sipandu-beradat.id/instansi-petugas/");
+  const { status_code, data } = await req.json();
+
   if (status_code === 200) {
-    $(".table-datatable").DataTable({
-      destroy: true,
-      fixedHeader: {
-        header: true,
-        footer: true,
-      },
-      columnDefs: [{ orderable: false, targets: [7] }],
-      data: data1.map((obj, i) => [
+    setupFilterDataTable(
+      "tabel-instansi",
+      [7],
+      data.map((obj, i) => [
         i + 1,
         obj.name,
         obj.jenis_instansi.name,
@@ -220,22 +122,22 @@ const readInstansi = async () => {
         report_status_badges[Number(obj.report_status)],
         active_status_badges[Number(obj.active_status)],
         `<div class="container-crud">
-      <a href="#" class="btn btn-inverse-success btn-rounded btn-icon btn-action mr-2 btn-super-admin" title="Super Admin" data-toggle="modal"
-      data-target="#modal-tambah-super-admin" data-id="${obj.id}">
-      <i class="mdi mdi-account-check"></i>
-          </a>
-          <a href="#" class="btn btn-inverse-primary btn-rounded btn-icon btn-action mr-2 btn-edit" title="Edit" data-toggle="modal"
-data-target="#modal-edit-instansi" data-id="${obj.id}" data-name="${obj.name}" data-jenis-instansi="${obj.jenis_instansi.id}" data-id-kabupaten="${obj.kecamatan.kabupaten.id}" data-id-kecamatan="${obj.kecamatan.id}" data-otoritas-pelaporan="${obj.report_status}" data-status="${obj.active_status}">
-<i class="mdi mdi-pencil"></i>
-          </a>
-          <a href="#" class="btn btn-inverse-primary-red btn-rounded btn-icon btn-action mr-2 btn-delete" title="Delete" data-toggle="modal"
-          data-target="#modal-hapus-instansi" data-id="${obj.id}">
-          <i class="mdi mdi-delete"></i>
-          </a>
-      </div>`,
-      ]),
-    });
-
+        <a href="#" class="btn btn-inverse-success btn-rounded btn-icon btn-action mr-2 btn-super-admin" title="Super Admin" data-toggle="modal"
+        data-target="#modal-tambah-super-admin" data-id="${obj.id}">
+        <i class="mdi mdi-account-check"></i>
+            </a>
+            <a href="#" class="btn btn-inverse-primary btn-rounded btn-icon btn-action mr-2 btn-edit" title="Edit" data-toggle="modal"
+  data-target="#modal-edit-instansi" data-id="${obj.id}" data-name="${obj.name}" data-jenis-instansi="${obj.jenis_instansi.id}" data-id-kabupaten="${obj.kecamatan.kabupaten.id}" data-id-kecamatan="${obj.kecamatan.id}" data-otoritas-pelaporan="${obj.report_status}" data-status="${obj.active_status}">
+  <i class="mdi mdi-pencil"></i>
+            </a>
+            <a href="#" class="btn btn-inverse-primary-red btn-rounded btn-icon btn-action mr-2 btn-delete" title="Delete" data-toggle="modal"
+            data-target="#modal-hapus-instansi" data-id="${obj.id}">
+            <i class="mdi mdi-delete"></i>
+            </a>
+        </div>`,
+      ])
+    );
+    stopLoading();
     $("tbody").on("click", ".btn-super-admin", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#edit-id").val(id);
@@ -260,7 +162,7 @@ data-target="#modal-edit-instansi" data-id="${obj.id}" data-name="${obj.name}" d
       $("#edit-status-pelaporan").val(otoritas_seluruh_pelaporan);
       $("#edit-active-status").val(status);
     });
-    stopLoading();
+
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

@@ -23,7 +23,7 @@ const updateNegara = async () => {
     method: "POST",
     body: fd,
   });
-  const { status_code, data, message } = await req.json();
+  const { status_code, message } = await req.json();
   stopLoading();
   swal1(status_code, "negara.html", updateNegara, refreshToken(), message);
 };

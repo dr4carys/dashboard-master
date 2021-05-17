@@ -1,8 +1,3 @@
-$("#form-desa").submit(async (e) => {
-  e.preventDefault();
-  startLoading();
-  await readDesaAdat();
-});
 const active_status_badges = [
   "<label class='badge badge-primary-red'>Nonaktif</label>",
   "<label class='badge badge-success'>Aktif</label>",
@@ -28,9 +23,7 @@ $(document).ready(async () => {
 
   kabupatens.map((obj) => {
     const option = `<option value="${obj.id}">${obj.name}</option>`;
-    $("#tambah-kabupaten1").append(option);
-    const option1 = `<option value="${obj.id}">${obj.name}</option>`;
-    $("#tambah-kabupaten").append(option1);
+    $("#tambah-kabupaten").append(option);
     $("#edit-kabupaten").append(option);
   });
 
@@ -41,25 +34,11 @@ $(document).ready(async () => {
       kecamatans
         .filter((obj) => obj.kabupaten.id === Number(e.target.value))
         .map((obj) => {
-          const option1 = `<option value="${obj.id}">${obj.name}</option>`;
-          $("#tambah-kecamatan").append(option1);
+          const option = `<option value="${obj.id}">${obj.name}</option>`;
+          $("#tambah-kecamatan").append(option);
         });
     } else {
       $("#tambah-kecamatan").attr("disabled", "disabled");
-    }
-  });
-  $("#tambah-kabupaten1").change((e) => {
-    if (e.target.value) {
-      $("#tambah-kecamatan1").removeAttr("disabled");
-      $("#tambah-kecamatan1").html("");
-      kecamatans
-        .filter((obj) => obj.kabupaten.id === Number(e.target.value))
-        .map((obj) => {
-          const option = `<option value="${obj.id}">${obj.name}</option>`;
-          $("#tambah-kecamatan1").append(option);
-        });
-    } else {
-      $("#tambah-kecamatan1").attr("disabled", "disabled");
     }
   });
 
@@ -117,48 +96,17 @@ const readBanjar = async () => {
     readBanjar();
   }
 };
-// uniqueArray = a.filter(function(item, pos) {
-//     return a.indexOf(item) == pos;
-// })
+
 const readDesaAdat = async () => {
   startLoading();
-  var link;
-  // $(".preloader").fadeIn(300);
-  const namaKabupaten = $("#tambah-kabupaten1 option:selected").text();
-  console.log(namaKabupaten);
-  const namaKecamatan = $("#tambah-kecamatan1 option:selected").text();
-  console.log(namaKecamatan);
-  const statusAktif = $("#status_aktif").val();
-  if (statusAktif == 1) {
-    link = "https://api.sipandu-beradat.id/desa-adat/?active_status=true";
-  } else if (statusAktif == 0) {
-    link = "https://api.sipandu-beradat.id/desa-adat/?active_status=false";
-  } else if (statusAktif == 2) {
-    link = "https://api.sipandu-beradat.id/desa-adat/";
-  }
-  const req = await fetch(link);
+  const req = await fetch("https://api.sipandu-beradat.id/desa-adat/");
   const { status_code, data, message } = await req.json();
-  console.log(data);
-  if (namaKabupaten === "Pilih Kabupaten") {
-    var data1 = data;
-  } else if (namaKecamatan != "Pilih Kecamatan") {
-    var data1 = data.filter(function filterss(data) {
-      return data.kecamatan.name == namaKecamatan;
-    });
-  } else {
-    var data1 = data.filter(function filterss(data) {
-      return data.kecamatan.kabupaten.name == namaKabupaten;
-    });
-  }
+
   if (status_code === 200) {
-    var datatablebaru = $(".table-datatable").DataTable({
-      destroy: true,
-      fixedHeader: {
-        header: true,
-        footer: true,
-      },
-      columnDefs: [{ orderable: false, targets: [7] }],
-      data: data1.map((obj, i) => [
+    setupFilterDataTable(
+      "tabel-desa-adat",
+      [7],
+      data.map((obj, i) => [
         i + 1,
         obj.kecamatan.kabupaten.name,
         obj.kecamatan.name,
@@ -181,8 +129,11 @@ data-target="#modal-edit-desa-adat" data-id="${obj.id}" data-id-kabupaten="${obj
         <i class="mdi mdi-delete"></i>
         </a>
     </div>`,
-      ]),
-    });
+      ])
+    );
+
+    stopLoading();
+
     $("tbody").on("click", ".btn-super-admin", (e) => {
       $("#admin-banjar").html("");
       const id = $(e.currentTarget).attr("data-id");
@@ -212,7 +163,7 @@ data-target="#modal-edit-desa-adat" data-id="${obj.id}" data-id-kabupaten="${obj
       $("#edit-longitude").val(longitude);
       $("#edit-active-status").val(status);
     });
-    stopLoading();
+
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

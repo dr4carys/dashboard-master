@@ -272,7 +272,7 @@
                 <li class="nav-item">
                   <a
                     class="nav-link"
-                    href="../../pages/pengaturan/pengaturan/pengaturan.html"
+                    href="../../pengaturan/pengaturan/pengaturan.html"
                     >Pengaturan</a
                   >
                 </li>
@@ -395,79 +395,16 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title mb-4 pb-2">Data Instansi</h4>
-                    <form id="form-instansi">
-                      <div class="row">
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="tambah-kabupaten">Kabupaten</label>
-                          <select class="form-control" id="tambah-kabupaten1">
-                            <option value="c">Pilih Kabupaten</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="tambah-kecamatan">Kecamatan</label>
-                          <select class="form-control" id="tambah-kecamatan1">
-                            <option value="c">Pilih Kecamatan</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="tambah-jenis-instansi1"
-                            >Jenis instansi</label
-                          >
-                          <select
-                            class="form-control"
-                            id="tambah-jenis-instansi1"
-                          >
-                            <option value="c">Pilih Jenis Instansi</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="tambah-status-pelaporan1"
-                            >Status Pelaporan</label
-                          >
-                          <select
-                            class="form-control"
-                            id="tambah-status-pelaporan1"
-                          >
-                            <option value="c">
-                              Pilih Jenis Status Pelaporan
-                            </option>
-                            <option value="0">Tidak</option>
-                            <option value="1">Seluruhnya</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="tambah-kabupaten">Status Aktif</label>
-                          <select class="form-control" id="status_aktif">
-                            <option value="c">Pilih Status</option>
-                            <option value="1">Aktif</option>
-                            <option value="0">Nonaktif</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="buttonsubmit"></label>
-                          <button
-                            class="
-                              form-control
-                              btn btn-sm btn-primary btn-icon-text
-                              mt-1
-                            "
-                            type="submit"
-                          >
-                            <i class="mdi mdi-magnify btn-icon-prepend"></i>Cari
-                          </button>
-                        </div>
-                      </div>
-                    </form>
                     <table class="table table-datatable" id="tabel-instansi">
                       <thead class="bg-light">
                         <tr>
                           <th>No.</th>
-                          <th>Nama Instansi</th>
-                          <th>Jenis Instansi</th>
-                          <th>Kabupaten</th>
-                          <th>Kecamatan</th>
-                          <th>Status Pelaporan</th>
-                          <th>Status</th>
+                          <th data-type="text">Nama Instansi</th>
+                          <th data-type="select">Jenis Instansi</th>
+                          <th data-type="select">Kabupaten</th>
+                          <th data-type="select">Kecamatan</th>
+                          <th data-type="select">Status Pelaporan</th>
+                          <th data-type="select">Status Aktif</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -918,7 +855,8 @@
                   text-center text-sm-left
                   d-sm-inline-block
                 "
-                >Copyright © bootstrapdash.com 2020</span
+                >&copy; Copyright <strong>Sipandu Beradat</strong>. All Rights
+                Reserved</span
               >
               <span
                 class="
@@ -928,11 +866,10 @@
                   text-center
                 "
               >
-                Free
-                <a href="https://www.bootstrapdash.com/" target="_blank"
-                  >Bootstrap dashboard template</a
-                >
-                from Bootstrapdash.com</span
+                Designed by
+                <a href="#" class="text-primary"
+                  >Teknologi Cerdas Squad</a
+                ></span
               >
             </div>
           </footer>
@@ -954,6 +891,7 @@
     <!-- JS -->
     <script src="../../../js/refresh-token.js"></script>
     <script src="../../../js/swaloading.js"></script>
+    <script src="../../../js/filter-table.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/create-instansi.js"></script>
     <script src="js/create-super-admin-instansi.js"></script>

@@ -30,12 +30,4 @@ const updateKabupaten = async () => {
     refreshToken(),
     message
   );
-  // if (status_code === 200) {
-  //   alert(message);
-  //   readKabupaten();
-  // } else if (status_code === 400) {
-  //   alert(message);
-  // } else if (status_code === 401) {
-  //   refreshToken(updateKabupaten);
-  // }
 };

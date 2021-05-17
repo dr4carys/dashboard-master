@@ -10,7 +10,6 @@ const active_status_badges = [
 
 $(document).ready(async () => {
   $("#tambah-desa-adat").attr("disabled", "disabled");
-  $("#tambah-desa-adat1").attr("disabled", "disabled");
   const kecamatans = await readKecamatan();
   const desaAdats = await readDesaAdat();
   await readBanjar();
@@ -18,8 +17,6 @@ $(document).ready(async () => {
   kecamatans.map((obj) => {
     const option = `<option value="${obj.id}">${obj.name}</option>`;
     $("#tambah-kecamatan").append(option);
-    const option1 = `<option value="${obj.id}">${obj.name}</option>`;
-    $("#tambah-kecamatan1").append(option1);
     $("#edit-kecamatan").append(option);
   });
 
@@ -35,20 +32,6 @@ $(document).ready(async () => {
         });
     } else {
       $("#tambah-desa-adat").attr("disabled", "disabled");
-    }
-  });
-  $("#tambah-kecamatan1").change((e) => {
-    if (e.target.value) {
-      $("#tambah-desa-adat1").removeAttr("disabled");
-      $("#tambah-desa-adat1").html("");
-      desaAdats
-        .filter((obj) => obj.kecamatan.id === Number(e.target.value))
-        .map((obj) => {
-          const option = `<option value="${obj.id}">${obj.name}</option>`;
-          $("#tambah-desa-adat1").append(option);
-        });
-    } else {
-      $("#tambah-desa-adat1").attr("disabled", "disabled");
     }
   });
 
@@ -96,42 +79,14 @@ const readDesaAdat = async () => {
 
 const readBanjar = async () => {
   startLoading();
-  const namaKecamatan = $("#tambah-kecamatan1 option:selected").text();
-  // console.log(namaKabupaten)
-  const namaDesaAdat = $("#tambah-desa-adat1 option:selected").text();
-  // console.log(namaKecamatan)
-  const statusAktif = $("#status_aktif").val();
-  if (statusAktif == 1) {
-    link = "https://api.sipandu-beradat.id/banjar/?active_status=true";
-  } else if (statusAktif == 0) {
-    link = "https://api.sipandu-beradat.id/banjar/?active_status=false";
-  } else if (statusAktif == 2) {
-    link = "https://api.sipandu-beradat.id/banjar/";
-  }
-  const req = await fetch(link);
+  const req = await fetch("https://api.sipandu-beradat.id/banjar/");
   const { status_code, data, message } = await req.json();
-  // console.log(data)
-  if (namaKecamatan === "Pilih Kecamatan") {
-    var data1 = data;
-  } else if (namaDesaAdat != "Pilih Desa Adat") {
-    var data1 = data.filter(function filterss(data) {
-      return data.desa_adat.name == namaDesaAdat;
-    });
-  } else {
-    var data1 = data.filter(function filterss(data) {
-      return data.desa_adat.kecamatan.name == namaKecamatan;
-    });
-  }
 
   if (status_code === 200) {
-    $(".table-datatable").DataTable({
-      destroy: true,
-      fixedHeader: {
-        header: true,
-        footer: true,
-      },
-      columnDefs: [{ orderable: false, targets: [5] }],
-      data: data1.map((obj, i) => [
+    setupFilterDataTable(
+      "tabel-banjar",
+      [5],
+      data.map((obj, i) => [
         i + 1,
         obj.desa_adat.kecamatan.name,
         obj.desa_adat.name,
@@ -149,8 +104,10 @@ const readBanjar = async () => {
         <i class="mdi mdi-delete"></i>
         </a>
     </div>`,
-      ]),
-    });
+      ])
+    );
+
+    stopLoading();
 
     $("tbody").on("click", ".btn-edit", (e) => {
       const id = $(e.currentTarget).attr("data-id");
@@ -165,7 +122,7 @@ const readBanjar = async () => {
       $("#edit-banjar").val(name);
       $("#edit-active-status").val(status);
     });
-    stopLoading();
+
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

@@ -1,8 +1,3 @@
-$("#form-fasilitas").submit(async (e) => {
-  e.preventDefault();
-  startLoading();
-  await readKabupaten();
-});
 const active_status_badges = [
   "<label class='badge badge-primary-red'>Nonaktif</label>",
   "<label class='badge badge-success'>Aktif</label>",
@@ -10,36 +5,21 @@ const active_status_badges = [
 
 $(document).ready(async () => {
   readKabupaten();
-    $("#status_aktif").change((e) => {
-      readKabupaten();
-    
+  $("#status_aktif").change((e) => {
+    readKabupaten();
   });
 });
 
 const readKabupaten = async () => {
   startLoading();
-  const statusAktif = $("#status_aktif").val();
-  // console.log(namaKabupaten)
-  if (statusAktif == 1) {
-    link = "https://api.sipandu-beradat.id/kabupaten/?active_status=true";
-  } else if (statusAktif == 0) {
-    link = "https://api.sipandu-beradat.id/kabupaten/?active_status=false";
-  } else if (statusAktif == 2) {
-    link = "https://api.sipandu-beradat.id/kabupaten/";
-  }
-
-  const req = await fetch(link);
+  const req = await fetch("https://api.sipandu-beradat.id/kabupaten/");
   const { status_code, data, message } = await req.json();
 
   if (status_code === 200) {
-    $(".table-datatable").DataTable({
-      destroy : true,
-      fixedHeader: {
-        header: true,
-        footer: true,
-      },
-      columnDefs: [{ orderable: false, targets: [4] }],
-      data: data.map((obj, i) => [
+    setupFilterDataTable(
+      "tabel-kabupaten",
+      [4],
+      data.map((obj, i) => [
         i + 1,
         obj.provinsi.name,
         obj.name,
@@ -54,8 +34,10 @@ const readKabupaten = async () => {
             <i class="mdi mdi-delete"></i>
         </a>
     </div>`,
-      ]),
-    });
+      ])
+    );
+
+    stopLoading();
 
     $("tbody").on("click", ".btn-edit", (e) => {
       const id = $(e.currentTarget).attr("data-id");
@@ -66,7 +48,7 @@ const readKabupaten = async () => {
       $("#edit-kabupaten").val(name);
       $("#edit-active-status").val(status);
     });
-    stopLoading();
+
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

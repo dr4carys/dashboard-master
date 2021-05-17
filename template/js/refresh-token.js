@@ -18,8 +18,8 @@ const refreshToken = async (callback) => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
 
-    window.location.href =
-      "file:///D:/Dwiki/SMT%208/Topik%20Khusus%20TC/Web/dashboard-master/template/pages/login/login.html";
+    // window.location.href =
+    //   "file:///D:/Dwiki/SMT%208/Topik%20Khusus%20TC/Web/dashboard-master/template/pages/login/login.html";
   } else {
     refreshToken(callback);
   }

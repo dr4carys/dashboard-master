@@ -1,7 +1,3 @@
-$("#form-mapsbaru11").submit(async (e) => {
-  e.preventDefault();
-  await readKecamatan();
-});
 const active_status_badges = [
   "<label class='badge badge-primary-red'>Nonaktif</label>",
   "<label class='badge badge-success'>Aktif</label>",
@@ -27,36 +23,15 @@ $(document).ready(async () => {
 });
 
 const readKecamatan = async () => {
-  var link;
   startLoading();
-  const namaKabupaten = $("#tambah-kabupaten1 option:selected").text();
-  const statusAktif = $("#status_aktif").val();
-  if (statusAktif == 1) {
-    link = "https://api.sipandu-beradat.id/kecamatan/?active_status=true";
-  } else if (statusAktif == 0) {
-    link = "https://api.sipandu-beradat.id/kecamatan/?active_status=false";
-  } else if (statusAktif == 2) {
-    link = "https://api.sipandu-beradat.id/kecamatan/";
-  }
-  const req = await fetch(link);
+  const req = await fetch("https://api.sipandu-beradat.id/kecamatan/");
   const { status_code, data, message } = await req.json();
-  if (namaKabupaten === "Pilih Kabupaten") {
-    var data1 = data;
-  } else {
-    var data1 = data.filter(function filterss(data) {
-      return data.kabupaten.name == namaKabupaten;
-    });
-  }
 
   if (status_code === 200) {
-    const datatab = $(".table-datatable").DataTable({
-      destroy: true,
-      fixedHeader: {
-        header: true,
-        footer: true,
-      },
-      columnDefs: [{ orderable: false, targets: [4] }],
-      data: data1.map((obj, i) => [
+    setupFilterDataTable(
+      "tabel-kecamatan",
+      [4],
+      data.map((obj, i) => [
         i + 1,
         obj.kabupaten.name,
         obj.name,
@@ -71,8 +46,12 @@ const readKecamatan = async () => {
             <i class="mdi mdi-delete"></i>
         </a>
     </div>`,
-      ]),
-    });
+        ,
+      ])
+    );
+
+    stopLoading();
+
     $("tbody").on("click", ".btn-edit", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       const kabupaten_id = $(e.currentTarget).attr("data-kabupaten-id");
@@ -89,6 +68,5 @@ const readKecamatan = async () => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);
     });
-    stopLoading();
   }
 };

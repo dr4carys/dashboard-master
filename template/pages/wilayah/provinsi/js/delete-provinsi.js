@@ -15,13 +15,5 @@ const removeProvinsi = async () => {
   });
 
   const { status_code, data, message } = await req.json();
-  swal1(status_code,"provinsi.html",removeProvinsi,refreshToken(),message);
-  // if (status_code === 200) {
-  //   alert(message);
-  //   readProvinsi();
-  // } else if (status_code === 400) {
-  //   alert(message);
-  // } else if (status_code === 401) {
-  //   refreshToken(removeProvinsi);
-  // }
+  swal1(status_code, "provinsi.html", removeProvinsi, refreshToken(), message);
 };

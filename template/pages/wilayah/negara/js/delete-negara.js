@@ -14,7 +14,6 @@ const removeNegara = async () => {
     body: fd,
   });
 
-  const { status_code, data, message } = await req.json();
-  swal1(status_code,"negara.html",removeNegara,refreshToken(),message);
- 
+  const { status_code, message } = await req.json();
+  swal1(status_code, "negara.html", removeNegara, refreshToken(), message);
 };

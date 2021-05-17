@@ -21,12 +21,4 @@ const addProvinsi = async () => {
   const { status_code, data, message } = await req.json();
   stopLoading();
   swal1(status_code, "provinsi.html", addProvinsi, refreshToken(), message);
-  // if (status_code === 200) {
-  //   alert(message);
-  //   readProvinsi();
-  // } else if (status_code === 400) {
-  //   alert(message);
-  // } else if (status_code === 401) {
-  //   refreshToken(addProvinsi);
-  // }
 };
