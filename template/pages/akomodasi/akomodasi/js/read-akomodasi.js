@@ -1,8 +1,3 @@
-$("#form-akomodasi").submit(async (e) => {
-  e.preventDefault();
-  startLoading();
-  await readAkomodasi();
-});
 const active_status_badges = [
   "<label class='badge badge-primary-red'>Nonaktif</label>",
   "<label class='badge badge-success'>Aktif</label>",
@@ -62,7 +57,6 @@ $(document).ready(async () => {
   kabupatens.map((obj) => {
     const option = `<option value="${obj.id}">${obj.name}</option>`;
     $("#tambah-kabupaten").append(option);
-    $("#tambah-kabupaten1").append(option);
     $("#edit-kabupaten").append(option);
   });
 
@@ -81,23 +75,6 @@ $(document).ready(async () => {
         });
     } else {
       $("#tambah-kecamatan").attr("disabled", "disabled");
-    }
-  });
-  $("#tambah-kabupaten1").change((e) => {
-    if (e.target.value) {
-      $("#tambah-kecamatan1").removeAttr("disabled");
-      $("#tambah-kecamatan1").html("");
-      $("#tambah-kecamatan1").append(
-        "<option value=''>Pilih Kecamatan</option>"
-      );
-      kecamatans
-        .filter((obj) => obj.kabupaten.id === Number(e.target.value))
-        .map((obj) => {
-          const option = `<option value="${obj.id}">${obj.name}</option>`;
-          $("#tambah-kecamatan1").append(option);
-        });
-    } else {
-      $("#tambah-kecamatan1").attr("disabled", "disabled");
     }
   });
 
@@ -129,21 +106,6 @@ $(document).ready(async () => {
         });
     } else {
       $("#tambah-desa-adat").attr("disabled", "disabled");
-    }
-  });
-
-  $("#tambah-kecamatan1").change((e) => {
-    if (e.target.value) {
-      $("#tambah-desa-adat1").removeAttr("disabled");
-      $("#tambah-desa-adat1").html("");
-      desaAdats
-        .filter((obj) => obj.kecamatan.id === Number(e.target.value))
-        .map((obj) => {
-          const option = `<option value="${obj.id}">${obj.name}</option>`;
-          $("#tambah-desa-adat1").append(option);
-        });
-    } else {
-      $("#tambah-desa-adat1").attr("disabled", "disabled");
     }
   });
 
@@ -204,46 +166,14 @@ const readDesaAdat = async () => {
 
 const readAkomodasi = async () => {
   startLoading();
-  var link;
-  // $(".preloader").fadeIn(300);
-  const namaKabupaten = $("#tambah-kabupaten1 option:selected").text();
-  const namaKecamatan = $("#tambah-kecamatan1 option:selected").text();
-  // console.log(namaKabupaten)
-  const namaDesaAdat = $("#tambah-desa-adat1 option:selected").text();
-  const statusAktif = $("#status_aktif").val();
-  // console.log(namaKabupaten)
-  if (statusAktif == 1) {
-    link = "https://api.sipandu-beradat.id/akomodasi/?active_status=true";
-  } else if (statusAktif == 0) {
-    link = "https://api.sipandu-beradat.id/akomodasi/?active_status=false";
-  } else if (statusAktif == 2) {
-    link = "https://api.sipandu-beradat.id/akomodasi/";
-  }
-
-  const req = await fetch(link);
+  const req = await fetch("https://api.sipandu-beradat.id/akomodasi/");
   const { status_code, data, message } = await req.json();
-  console.log(data);
-  if (namaKecamatan === "Pilih Kecamatan" && namaDesaAdat == "Pilih Desa Adat") {
-    var data1 = data;
-  } else if (namaDesaAdat != "Pilih Desa Adat") {
-    var data1 = data.filter(function filterss(data) {
-      return data.desa_adat.name == namaDesaAdat;
-    });
-  } else {
-    var data1 = data.filter(function filterss(data) {
-      return data.desa_adat.kecamatan.name == namaKecamatan;
-    });
-  }
+
   if (status_code === 200) {
-    $(".table-datatable").DataTable({
-      destroy: true,
-      DataTable: true,
-      fixedHeader: {
-        header: true,
-        footer: true,
-      },
-      columnDefs: [{ orderable: false, targets: [5] }],
-      data: data1.map((obj, i) => [
+    setupFilterDataTable(
+      "tabel-akomodasi",
+      [5],
+      data.map((obj, i) => [
         i + 1,
         obj.name,
         obj.desa_adat.name,
@@ -264,8 +194,10 @@ const readAkomodasi = async () => {
         <i class="mdi mdi-delete"></i>
         </a>
     </div>`,
-      ]),
-    });
+      ])
+    );
+
+    stopLoading();
 
     $("tbody").on("click", ".btn-super-admin", (e) => {
       const id = $(e.currentTarget).attr("data-id");
@@ -292,7 +224,6 @@ const readAkomodasi = async () => {
       $("#edit-deskripsi").val(description);
       $("#edit-active-status").val(status);
     });
-    stopLoading();
     $("tbody").on("click", ".btn-delete", (e) => {
       const id = $(e.currentTarget).attr("data-id");
       $("#hapus-id").val(id);

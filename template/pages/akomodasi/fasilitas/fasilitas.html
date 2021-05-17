@@ -393,38 +393,13 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title mb-4 pb-2">Data Instansi</h4>
-                    <form id="form-fasilitas">
-                      <div class="row">
-                        <div class="form-group mb-4 col-md-4">
-                          <label for="tambah-kabupaten">Status Aktif</label>
-                          <select class="form-control" id="status_aktif">
-                            <option value="2">Pilih Status</option>
-                            <option value="1">Aktif</option>
-                            <option value="0">Nonaktif</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-2">
-                          <label for="buttonsubmit"></label>
-                          <button
-                            class="
-                              form-control
-                              btn btn-sm btn-primary btn-icon-text
-                              mt-1
-                            "
-                            type="submit"
-                          >
-                            <i class="mdi mdi-magnify btn-icon-prepend"></i>Cari
-                          </button>
-                        </div>
-                      </div>
-                    </form>
                     <table class="table table-datatable" id="tabel-fasilitas">
                       <thead class="bg-light">
                         <tr>
                           <th>No.</th>
-                          <th>Fasilitas</th>
+                          <th data-type="text">Fasilitas</th>
                           <th>Icon</th>
-                          <th>Status</th>
+                          <th data-type="select">Status Aktif</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -723,6 +698,7 @@
     <!-- JS -->
     <script src="../../../js/refresh-token.js"></script>
     <script src="../../../js/swaloading.js"></script>
+    <script src="../../../js/filter-table.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/create-fasilitas-akomodasi.js"></script>
     <script src="js/read-fasilitas-akomodasi.js"></script>

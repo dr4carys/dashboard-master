@@ -379,59 +379,14 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title mb-4 pb-2">Data Instansi</h4>
-                    <form id="form-akomodasi">
-                      <div class="row">
-                        <div class="form-group mb-4 col-md-2">
-                          <label for="tambah-kabupaten">Kabupaten</label>
-                          <select class="form-control" id="tambah-kabupaten1">
-                            <option value="">Pilih Kabupaten</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-2">
-                          <label for="tambah-kecamatan">Kecamatan</label>
-                          <select class="form-control" id="tambah-kecamatan1">
-                            <option value="">Pilih Kecamatan</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-2">
-                        <label for="tambah-desa-adat">Desa Adat</label>
-                        <select class="form-control" id="tambah-desa-adat1">
-                          <option value="">Pilih Desa Adat</option>
-                        </select>
-                      </div>
-                        <div class="form-group mb-4 col-md-2">
-                          <label for="tambah-kabupaten">Status Aktif</label>
-                          <select class="form-control" id="status_aktif">
-                            <option value="2">Pilih Status</option>
-                            <option value="1">Aktif</option>
-                            <option value="0">Nonaktif</option>
-                          </select>
-                        </div>
-                        <div class="form-group mb-4 col-md-2">
-                          <label for="buttonsubmit"></label>
-                          <button
-                          id="button status"
-                            class="
-                              form-control
-                              btn btn-sm btn-primary btn-icon-text
-                              mt-1
-                            "
-                            type="submit"
-                          >
-                            <i class="mdi mdi-magnify btn-icon-prepend"></i>Cari
-                          </button>
-                        </div>
-                      </div>
-                      </form>
                     <table class="table table-datatable" id="tabel-akomodasi">
                       <thead class="bg-light">
-                        
                         <tr>
                           <th>No.</th>
-                          <th>Akomodasi</th>
-                          <th>Desa Adat</th>
-                          <th>Alamat</th>
-                          <th>Status</th>
+                          <th data-type="text">Akomodasi</th>
+                          <th data-type="select">Desa Adat</th>
+                          <th data-type="text">Alamat</th>
+                          <th data-type="select">Status Aktif</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -1023,6 +978,7 @@
     <!-- JS -->
     <script src="../../../js/refresh-token.js"></script>
     <script src="../../../js/swaloading.js"></script>
+    <script src="../../../js/filter-table.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/create-akomodasi.js"></script>
     <script src="js/create-super-admin-akomodasi.js"></script>
