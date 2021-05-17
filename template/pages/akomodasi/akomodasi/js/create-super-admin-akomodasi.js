@@ -63,9 +63,5 @@ const addSuperAdminAkomodasi = async (id) => {
   );
   const { status_code, message } = await req2.json();
   stopLoading();
-  if (status_code === 200 || status_code === 400) {
-    alert(message);
-  } else if (status_code === 401) {
-    refreshToken(() => addSuperAdminAkomodasi(id));
-  }
+  swal1(status_code, "akomodasi.html", addSuperAdminAkomodasi, refreshToken(), message);
 };
