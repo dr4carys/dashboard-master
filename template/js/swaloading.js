@@ -18,13 +18,6 @@ function swal1(status_code, prov, updateProvinsi, refreshToken, message) {
       confirmButtonText: "Tutup",
     });
   } else if (status_code === 401) {
-    // console.log("hh")
-    // Swal.fire({
-    // title: "Terjadi Kesalahan",
-    // text: message,
-    // icon: "error",
-    // confirmButtonText: "Tutup",
-    // });
-    refreshToken();
+    refreshToken(updateProvinsi);
   }
 }
