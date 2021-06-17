@@ -6,6 +6,7 @@ $("#form-tambah-super-admin").submit(async (e) => {
 const addMasyarakat = async () => {
   startLoading();
   const name = $("#admin-name").val();
+  const email = $("#admin-email").val();
   const nik = $("#admin-nik").val();
   const noTelp = $("#admin-telp").val();
   const tglLahir = $("#admin-tgl-lahir").val();
@@ -19,6 +20,7 @@ const addMasyarakat = async () => {
   const fd = new FormData();
   fd.append("id_banjar", banjar);
   fd.append("name", name);
+  fd.append("email", email);
   fd.append("username", username);
   fd.append("password", password);
   fd.append("phone", noTelp);

@@ -7,6 +7,7 @@ const addPetugas = async () => {
   startLoading();
   const id_instansi = $("#edit-id").val();
   const name = $("#admin-name").val();
+  const email = $("#admin-email").val();
   const username = $("#admin-username").val();
   const password = $("#admin-password").val();
   const phone = $("#admin-telp").val();
@@ -18,6 +19,7 @@ const addPetugas = async () => {
   const fd = new FormData();
   fd.append("id_instansi", id_instansi);
   fd.append("name", name);
+  fd.append("email", email);
   fd.append("username", username);
   fd.append("password", password);
   fd.append("phone", phone);

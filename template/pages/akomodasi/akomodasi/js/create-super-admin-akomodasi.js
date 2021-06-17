@@ -46,11 +46,13 @@ const addPegawaiAkomodasi = async () => {
 
 const addSuperAdminAkomodasi = async (id) => {
   const username = $("#admin-username").val();
+  const email = $("#admin-email").val();
   const password = $("#admin-password").val();
 
   const fd = new FormData();
   fd.append("id_pegawai", id);
   fd.append("username", username);
+  fd.append("email", email);
   fd.append("password", password);
   fd.append("XAT", `Bearer ${localStorage.getItem("access_token")}`);
 

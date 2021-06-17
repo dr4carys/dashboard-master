@@ -10539,6 +10539,24 @@ a.badge-dark.focus {
   border-color: #20272f;
 }
 
+#otp {
+  font-size: 48px;
+  font-weight: bold;
+  padding-left: 40px;
+  letter-spacing: 40px;
+  width: calc(100% - 124px);
+  border: none;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: red;
+  margin-bottom: 8px;
+  transition: border-bottom-width 0.3s ease-in-out;
+}
+
+#otp:focus {
+  border-bottom-width: 2px;
+}
+
 .close {
   float: right;
   font-size: 1.5rem;
