@@ -60,6 +60,7 @@ const addSuperAdminInstansi = async (id) => {
     }
   );
   const { status_code, message } = await req2.json();
+  stopLoading();
   swal1(status_code, "instansi.html", addSuperAdminInstansi, refreshToken(), message);
   
 };
